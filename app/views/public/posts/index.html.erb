@@ -1,0 +1,64 @@
+<%= render "layouts/header" %>
+
+<div class="container py-5">
+
+  <!-- タイトル・投稿ボタン -->
+  <div class="d-flex justify-content-center align-items-center position-relative mb-4">
+
+    <h2 class="fw-bold mb-0">
+      <span class="small text-secondary">・・・・</span>
+      新着レシピ
+      <span class="small text-secondary">・・・・</span>
+    </h2>
+
+    <%= link_to new_public_post_path,
+        class: "btn btn-success btn-sm rounded-pill position-absolute end-0 px-4" do %>
+      レシピを投稿する
+      <i class="bi bi-chevron-right ms-2"></i>
+    <% end %>
+
+  </div>
+
+
+  <!-- 投稿一覧 -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+    <% @posts.each do |post| %>
+      <div class="col">
+        <%= link_to public_post_path(post),
+            class: "text-decoration-none text-dark" do %>
+          <div class="card border-0 rounded-3 overflow-hidden h-100">
+            <!-- 画像 -->
+            <div class="ratio ratio-4x3 bg-secondary-subtle">
+              <% if post.image.attached? %>
+                <%= image_tag post.image,
+                      class: "w-100 h-100 object-fit-cover" %>
+              <% end %>
+            </div>
+
+            <!-- 投稿情報 -->
+            <div class="card-body bg-warning-subtle">
+
+              <!-- ユーザー名 -->
+              <p class="small fw-bold mb-2">
+                <%= post.user.name %>
+              </p>
+
+              <!-- タイトル -->
+              <h5 class="fw-bold mb-0">
+                <%= post.title %>
+              </h5>
+
+              <!-- 投稿日 -->
+              <p class="small mb-0">
+                <%= post.created_at.strftime("%Y/%m/%d") %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
+
+<%= render "layouts/footer" %>

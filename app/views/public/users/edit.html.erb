@@ -1,0 +1,191 @@
+<%= render "layouts/header" %>
+
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-lg-9">
+
+      <h2 class="text-center fw-bold mb-5">
+        ユーザー情報編集
+      </h2>
+
+      <div class="card shadow-sm rounded-4 overflow-hidden">
+
+        <div class="card-body p-0">
+
+          <%= form_with model: @user,
+                        url: public_user_path(@user),
+                        method: :patch,
+                        local: true do |form| %>
+
+            <!-- プロフィール画像 -->
+            <div class="row border-bottom align-items-center">
+
+              <div class="col-md-4 bg-light py-4 ps-4">
+                <%= form.label :profile_image,
+                      "プロフィール画像",
+                      class: "fw-bold" %>
+              </div>
+
+              <div class="col-md-8 py-4 px-4">
+
+                <% if @user.profile_image.attached? %>
+                  <div class="mb-3">
+                    <%= image_tag @user.profile_image,
+                          class: "rounded-circle object-fit-cover",
+                          width: 120,
+                          height: 120 %>
+                  </div>
+                <% end %>
+
+                <%= form.file_field :profile_image,
+                      class: "form-control",
+                      accept: "image/*" %>
+
+                <small class="text-muted d-block mt-2">
+                  JPG、PNGなどの画像を選択してください。
+                </small>
+
+              </div>
+
+            </div>
+
+            <!-- ニックネーム -->
+            <div class="row border-bottom align-items-center">
+
+              <div class="col-md-4 bg-light py-4 ps-4">
+                <%= form.label :name,
+                      "ニックネーム",
+                      class: "fw-bold" %>
+
+                <span class="badge bg-warning text-dark ms-2">
+                  必須
+                </span>
+              </div>
+
+              <div class="col-md-8 py-3 px-4">
+
+                <%= form.text_field :name,
+                      class: "form-control",
+                      style: "max-width:450px;",
+                      required: true %>
+
+              </div>
+
+            </div>
+
+            <!-- メールアドレス -->
+            <div class="row border-bottom align-items-center">
+
+              <div class="col-md-4 bg-light py-4 ps-4">
+                <%= form.label :email_address,
+                      "メールアドレス",
+                      class: "fw-bold" %>
+
+                <span class="badge bg-warning text-dark ms-2">
+                  必須
+                </span>
+              </div>
+
+              <div class="col-md-8 py-3 px-4">
+
+                <%= form.email_field :email_address,
+                      class: "form-control",
+                      style: "max-width:450px;",
+                      required: true %>
+
+              </div>
+
+            </div>
+
+            <!-- 自己紹介 -->
+            <div class="row border-bottom align-items-center">
+
+              <div class="col-md-4 bg-light py-4 ps-4">
+                <%= form.label :introduction,
+                      "自己紹介",
+                      class: "fw-bold" %>
+              </div>
+
+              <div class="col-md-8 py-3 px-4">
+
+                <%= form.text_area :introduction,
+                      class: "form-control",
+                      rows: 5,
+                      style: "max-width:450px;",
+                      placeholder: "自己紹介を入力してください" %>
+
+              </div>
+
+            </div>
+
+            <!-- パスワード -->
+            <div class="row border-bottom align-items-center">
+
+              <div class="col-md-4 bg-light py-4 ps-4">
+                <%= form.label :password,
+                      "パスワード",
+                      class: "fw-bold" %>
+              </div>
+
+              <div class="col-md-8 py-3 px-4">
+
+                <%= form.password_field :password,
+                      class: "form-control",
+                      style: "max-width:450px;",
+                      autocomplete: "new-password" %>
+
+                <small class="text-muted d-block mt-1">
+                  パスワードを変更しない場合は空欄にしてください。
+                </small>
+
+              </div>
+
+            </div>
+
+            <!-- パスワード確認 -->
+            <div class="row border-bottom align-items-center">
+
+              <div class="col-md-4 bg-light py-4 ps-4">
+                <%= form.label :password_confirmation,
+                      "パスワードの確認",
+                      class: "fw-bold" %>
+              </div>
+
+              <div class="col-md-8 py-3 px-4">
+
+                <%= form.password_field :password_confirmation,
+                      class: "form-control",
+                      style: "max-width:450px;",
+                      autocomplete: "new-password" %>
+
+              </div>
+
+            </div>
+
+            <!-- ボタン -->
+            <div class="d-flex justify-content-center gap-3 py-5">
+
+              <%= link_to "キャンセル",
+                    public_user_path(@user),
+                    class: "btn btn-outline-secondary rounded-pill px-5 py-2" %>
+
+              <%= form.submit "更新する",
+                    class: "btn btn-success rounded-pill px-5 py-2" %>
+
+            </div>
+
+          <% end %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%= render "layouts/footer" %>

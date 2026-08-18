@@ -1,0 +1,28 @@
+
+h3 {
+  font-weight: bold;
+}
+
+.btn-success {
+  border-radius: 20px;
+}
+/* ユーザーのログイン画面 */
+.login-btn{
+    border-color:#b9bf77;
+    color:#b9bf77;
+}
+
+.login-btn:hover{
+    background:#b9bf77;
+    border-color:#b9bf77;
+}
+
+.register-btn{
+    background:#b9bf77;
+    border-color:#b9bf77;
+}
+
+.register-btn:hover{
+    background:#aab36b;
+    border-color:#aab36b;
+}

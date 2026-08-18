@@ -1,0 +1,95 @@
+<header>
+
+  <!-- 上段：ロゴ + ユーザーアイコン -->
+  <div class="container">
+
+    <div class="position-relative d-flex justify-content-end align-items-center py-4">
+
+      <!-- ロゴ（画面中央） -->
+      <div class="position-absolute start-50 translate-middle-x">
+        <%= link_to root_path do %>
+          <%= image_tag "mogumo_logo.png",
+                        alt: "mogumo",
+                        width: "250" %>
+        <% end %>
+      </div>
+        
+      <!-- 右側メニュー -->
+      <div class="d-flex gap-3">
+        
+        <% if authenticated? %>
+        
+          <%= link_to public_mypage_path,
+                      class: "text-decoration-none text-dark text-center" do %>
+            <i class="bi bi-person-circle fs-2"></i>
+            <div>マイページ</div>
+          <% end %>
+                      
+          <%= link_to public_session_path,
+                      data: { turbo_method: :delete },
+                      class: "text-decoration-none text-dark text-center" do %>
+            <i class="bi bi-box-arrow-right fs-2"></i>
+            <div>ログアウト</div>
+          <% end %>
+                      
+        <% else %>
+                      
+          <%= link_to new_public_user_path,
+                      class: "text-decoration-none text-dark text-center" do %>
+            <i class="bi bi-pencil-square fs-2"></i>
+            <div>会員登録</div>
+          <% end %>
+                      
+          <%= link_to new_public_session_path,
+                      class: "text-decoration-none text-dark text-center" do %>
+            <i class="bi bi-person fs-2"></i>
+            <div>ログイン</div>
+          <% end %>
+                      
+        <% end %>
+                      
+      </div>
+                      
+    </div>
+
+
+    <!-- 下段：ナビゲーション -->
+    <nav>
+
+      <ul class="nav justify-content-center align-items-stretch py-3">
+
+        <li class="nav-item border-start">
+          <%= link_to "About",
+                      homes_about_path,
+                      class: "nav-link text-dark px-5" %>
+        </li>
+
+
+          <li class="nav-item border-start">
+          <%= link_to "投稿一覧",
+                      public_posts_path,
+                      class: "nav-link text-dark px-5" %>
+        </li>
+
+
+       <li class="nav-item border-start">
+          <%= link_to "コミュニティ一覧",
+                      root_path,
+                      class: "nav-link text-dark px-5" %>
+        </li>
+
+
+       <li class="nav-item border-start border-end">
+          <%= link_to "ユーザー一覧",
+                      public_users_path,
+                      class: "nav-link text-dark px-5" %>
+        </li>
+
+
+      </ul>
+
+    </nav>
+
+  </div>
+
+</header>

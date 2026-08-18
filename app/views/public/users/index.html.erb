@@ -1,0 +1,49 @@
+<%= render "layouts/header" %>
+
+<div class="container py-5">
+
+  <h1 class="text-center fw-bold mb-5">
+    ユーザー一覧
+  </h1>
+
+  <div class="row g-4">
+
+    <% @users.each do |user| %>
+
+      <div class="col-12 col-md-6 col-lg-4">
+
+        <div class="card h-100 border-0 shadow-sm rounded-4">
+
+          <div class="card-body p-4 text-center">
+
+            <h2 class="h5 fw-bold mb-3">
+              <%= user.name %>
+            </h2>
+
+            <% if user.introduction.present? %>
+              <p class="text-secondary small mb-4">
+                <%= truncate(user.introduction, length: 80) %>
+              </p>
+            <% else %>
+              <p class="text-secondary small mb-4">
+                自己紹介はありません
+              </p>
+            <% end %>
+
+            <%= link_to "プロフィールを見る",
+                        public_user_path(user),
+                        class: "btn btn-outline-success rounded-pill px-4" %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>
+
+<%= render "layouts/footer" %>

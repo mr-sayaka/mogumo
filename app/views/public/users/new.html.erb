@@ -1,0 +1,113 @@
+<%= render 'layouts/header' %>
+
+<div class="container" style="max-width:1200px;">
+
+  <h3 class="text-center my-5">
+    新規会員登録
+  </h3>
+
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <h5>
+      <%= @user.errors.count %>件のエラーがあります。
+    </h5>
+
+    <ul class="mb-0">
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user,
+              url: public_users_path,
+              local: true do |form| %>
+
+  <div class="border-top">
+                
+  <!-- ニックネーム -->
+    <div class="row border-bottom align-items-center">
+      <div class="col-md-4 bg-light py-4 ps-4">
+        <%= form.label :name, "ニックネーム" %>
+        <span class="badge bg-warning text-dark ms-3">
+          必須
+        </span>
+      </div>
+
+      <div class="col-md-8 py-3 px-4">
+        <%= form.text_field :name,
+            class: "form-control",
+            style: "max-width:450px;" %>
+      </div>
+    </div>
+                
+  <!-- メールアドレス -->
+    <div class="row border-bottom align-items-center">
+      <div class="col-md-4 bg-light py-4 ps-4">
+        <%= form.label :email_address, "メールアドレス" %>
+        <span class="badge bg-warning text-dark ms-3">
+          必須
+        </span>
+      </div>
+
+      <div class="col-md-8 py-3 px-4">
+          <%= form.email_field :email_address,
+              class: "form-control",
+              style: "max-width:450px;" %>
+        </div>
+      </div>
+
+  <!-- パスワード -->
+    <div class="row border-bottom align-items-stretch">
+      <div class="col-md-4 bg-light py-4 ps-4 d-flex align-items-center">
+        <%= form.label :password, "パスワード" %>
+        <span class="badge bg-warning text-dark ms-3">
+          必須
+        </span>
+      </div>
+
+      <div class="col-md-8 py-3 px-4">
+        <%= form.password_field :password,
+            class: "form-control",
+            style: "max-width:450px;" %>
+        <small class="text-muted d-block mt-1">
+          半角英数6文字以上で設定してください。
+        </small>
+      </div>
+    </div>
+                
+  <!-- パスワード確認 -->
+      <div class="row border-bottom align-items-center">
+        <div class="col-md-4 bg-light py-4 ps-4">
+          <%= form.label :password_confirmation, "パスワードの確認" %>
+          <span class="badge bg-warning text-dark ms-3">
+            必須
+          </span>
+        </div>
+
+        <div class="col-md-8 py-3 px-4">
+          <%= form.password_field :password_confirmation,
+              class: "form-control",
+              style: "max-width:450px;" %>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="text-center my-5">
+        <%= form.submit "新規会員登録",
+            class: "btn px-5",
+            style: "
+              border:2px solid #b9c88a;
+              color:#b9c88a;
+              border-radius:30px;
+              background:white;
+            " %>
+      </div>
+
+  <% end %>
+</div>
+
+<%= render "layouts/footer" %>
