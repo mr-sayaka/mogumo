@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  title: MyString
+  introduction: MyText
+  ingredients: MyText
+  how_to_make: MyText
+  target_age: MyString
+  allergy: MyText
+
+two:
+  user: two
+  title: MyString
+  introduction: MyText
+  ingredients: MyText
+  how_to_make: MyText
+  target_age: MyString
+  allergy: MyText

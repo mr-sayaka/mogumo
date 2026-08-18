@@ -1,0 +1,153 @@
+<%= render "layouts/header" %>
+
+<div class="container py-5">
+
+  <!-- 投稿タイトル -->
+  <div class="text-center mb-4">
+  
+    <h1 class="fw-bold">
+      <%= @post.title %>
+    </h1>
+  
+    <p class="text-secondary small mt-3 mb-0">
+      <%= @post.user.name %>
+      ・
+      <%= @post.created_at.strftime("%Y/%m/%d") %>
+    </p>
+  
+  </div>
+  
+  <!-- 投稿画像 -->
+  <% if @post.image.attached? %>
+    <div class="text-center mb-5">
+      <%= image_tag @post.image,
+                    class: "img-fluid rounded-4 shadow-sm",
+                    style: "max-height: 300px;" %>
+    </div>
+  <% end %>
+
+  </div>
+
+
+  <!-- 投稿内容 -->
+  <div class="row justify-content-center">
+
+    <div class="col-12 col-lg-9">
+
+      <!-- 基本情報 -->
+      <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body p-4">
+
+          <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
+            レシピについて
+          </h2>
+
+          <div class="mb-4">
+            <h3 class="h6 fw-bold mb-2">
+              ひとこと
+            </h3>
+
+            <p class="mb-0">
+              <%= simple_format(@post.introduction) %>
+            </p>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+              <h3 class="h6 fw-bold mb-2">
+                対象年齢
+              </h3>
+
+              <p class="mb-0">
+                <%= @post.target_age %>
+              </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <h3 class="h6 fw-bold mb-2">
+                アレルギー
+              </h3>
+
+              <p class="mb-0">
+                <%= @post.allergy %>
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- 材料 -->
+      <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body p-4">
+
+          <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
+            材料
+          </h2>
+
+          <div>
+            <%= simple_format(@post.ingredients) %>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- 作り方 -->
+      <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body p-4">
+
+          <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
+            作り方
+          </h2>
+
+          <div>
+            <%= simple_format(@post.how_to_make) %>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ボタン -->
+<div class="text-center mt-5">
+
+  <% if Current.user == @post.user %>
+    <%= link_to "編集する",
+        edit_public_post_path(@post),
+        class: "btn btn-primary rounded-pill px-4 me-2" %>
+    
+    <%= button_to "削除する",
+        public_post_path(@post),
+        method: :delete,
+        class: "btn btn-outline-danger rounded-pill px-4",
+        form: {
+          class: "d-inline",
+          data: {
+            turbo_confirm: "この投稿を削除しますか？"
+          }
+        } %>
+  <% end %>
+
+  <%= link_to "投稿一覧に戻る",
+      public_posts_path,
+      class: "btn btn-outline-secondary rounded-pill px-4" %>
+
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%= render "layouts/footer" %>

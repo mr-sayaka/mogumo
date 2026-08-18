@@ -1,0 +1,62 @@
+<%= render "layouts/header" %>
+
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+      <h2 class="text-center fw-bold mb-5">
+        マイページ
+      </h2>
+
+      <!-- ユーザー情報 -->
+      <div class="card shadow-sm rounded-4 mb-5">
+        <div class="card-body p-4">
+
+          <h4 class="fw-bold mb-4">
+            ユーザー情報
+          </h4>
+
+          <div class="mb-3">
+            <strong>氏名</strong>
+            <p class="mb-0">
+              <%= @user.name %>
+            </p>
+          </div>
+
+          <div class="mb-4">
+            <strong>メールアドレス</strong>
+            <p class="mb-0">
+              <%= @user.email_address %>
+            </p>
+          </div>
+
+          <div class="text-center">
+            <%= link_to "ユーザー情報を編集",
+                        edit_public_user_path(@user),
+                        class: "btn btn-outline-success rounded-pill px-5" %>
+          </div>
+
+        </div>
+      </div>
+      <!-- 退会 -->
+      <div class="text-center mt-5">
+
+        <%= button_to "退会する",
+                      public_user_path(@user),
+                      method: :delete,
+                      data: {
+                        turbo_confirm: "本当に退会しますか？\n退会すると登録情報や投稿が削除されます。"
+                      },
+                      class: "btn btn-outline-danger rounded-pill px-5" %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%= render "layouts/footer" %>

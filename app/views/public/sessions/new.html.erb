@@ -1,0 +1,40 @@
+<%= render 'layouts/header' %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 text-center">
+      <p class="fw-bold fs-4 mb-5">
+        毎日の離乳食をもっと楽しく、もっと安心に。<br>
+        ログインしてレシピを投稿・保存しましょう。
+      </p>
+
+      <div class="card shadow-sm rounded-4 border-2">
+        <div class="card-body p-5">
+          <h3 class="fw-bold mb-4">メールアドレスでログイン</h3>
+
+          <%= form_with url: public_session_path, method: :post, local: true do |form| %>
+            <div class="mb-3">
+              <%= form.email_field :email_address,
+                    class: "form-control form-control-lg",
+                    placeholder: "メールアドレス",
+                    required: true,
+                    autofocus: true,
+                    autocomplete: "username" %>
+            </div>
+            <div class="mb-4">
+              <%= form.password_field :password,
+                    class: "form-control form-control-lg",
+                    placeholder: "パスワード",
+                    required: true,
+                    autocomplete: "current-password" %>
+            </div>
+            <%= form.submit "ログイン", class: "btn btn-outline-success rounded-pill px-5 py-2 w-75 login-btn" %>
+          <% end %>
+        </div>
+      </div>
+      <%= link_to "新規会員登録はこちら", new_public_user_path, class: "btn btn-success rounded-pill w-100 py-3 mt-4 register-btn" %>
+    </div>
+  </div>
+</div>
+
+<%= render "layouts/footer" %>
