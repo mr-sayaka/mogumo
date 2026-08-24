@@ -16,7 +16,7 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-  @posts = Post.includes(:user).order(created_at: :desc)
+    @posts = Post.includes(:user).order(created_at: :desc)
   end
 
   def show
@@ -24,37 +24,43 @@ class Public::PostsController < ApplicationController
   end
 
   def edit
-  @post = Current.user.posts.find(params[:id])
-end
-
-def update
-  @post = Current.user.posts.find(params[:id])
-
-  if @post.update(post_params)
-    redirect_to public_post_path(@post), notice: "投稿を更新しました。"
-  else
-    render :edit, status: :unprocessable_entity
+    @post = Current.user.posts.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to public_posts_path, alert: "他のユーザーの投稿は編集できません。"
   end
-end
 
-def destroy
-  @post = Current.user.posts.find(params[:id])
-  @post.destroy
+  def update
+    @post = Current.user.posts.find(params[:id])
 
-  redirect_to public_posts_path, notice: "投稿を削除しました。"
-end
+    if @post.update(post_params)
+      redirect_to public_post_path(@post), notice: "投稿を更新しました。"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to public_posts_path, alert: "他のユーザーの投稿は編集できません。"
+  end
+
+  def destroy
+    @post = Current.user.posts.find(params[:id])
+    @post.destroy
+
+    redirect_to  public_mypage_path, notice: "投稿を削除しました。"
+  rescue ActiveRecord::RecordNotFound
+    redirect_to public_posts_path, alert: "他のユーザーの投稿は削除できません。"
+  end
 
   private
 
   def post_params
     params.require(:post).permit(
-    :image,
-    :title,
-    :introduction,
-    :ingredients,
-    :how_to_make,
-    :target_age,
-    :allergy
+      :image,
+      :title,
+      :introduction,
+      :ingredients,
+      :how_to_make,
+      :target_age,
+      :allergy
     )
   end
 end

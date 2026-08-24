@@ -2,6 +2,7 @@ class Public::UsersController < ApplicationController
   allow_unauthenticated_access only: [:new, :create]
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_current_user, only: [:edit, :update, :destroy]
 
   def index
   @users = User.order(created_at: :desc)
@@ -9,6 +10,7 @@ class Public::UsersController < ApplicationController
 
   def mypage
   @user = Current.user
+  @posts = @user.posts.order(created_at: :desc)
   end
 
   def new
@@ -44,10 +46,6 @@ class Public::UsersController < ApplicationController
   end
 
   def destroy
-  if Current.user != @user
-    redirect_to root_path, alert: "この操作はできません。"
-    return
-  end
 
   terminate_session
   @user.destroy
@@ -59,6 +57,12 @@ end
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def ensure_current_user
+    unless Current.user == @user
+      redirect_to public_mypage_path, alert: "他のユーザーの編集はできません。"
+    end
   end
 
   def user_params
