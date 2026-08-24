@@ -1,0 +1,160 @@
+<%= render "layouts/header" %>
+
+<div class="container py-5">
+
+  <!-- タイトル -->
+  <div class="d-flex justify-content-center align-items-center mb-4">
+
+    <h2 class="fw-bold mb-0">
+      <span class="small text-secondary">・・・・</span>
+      検索結果
+      <span class="small text-secondary">・・・・</span>
+    </h2>
+
+  </div>
+
+
+  <% if @search_type == "post" %>
+
+    <!-- =========================
+         投稿検索結果
+    ========================== -->
+
+    <% if @posts.present? %>
+
+      <!-- 投稿一覧 -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+
+        <% @posts.each do |post| %>
+
+          <div class="col">
+
+            <%= link_to public_post_path(post),
+                        class: "text-decoration-none text-dark" do %>
+
+              <div class="card border-0 rounded-3 overflow-hidden h-100">
+
+                <!-- 画像 -->
+                <div class="ratio ratio-4x3 bg-secondary-subtle">
+
+                  <% if post.image.attached? %>
+
+                    <%= image_tag post.image,
+                                  class: "w-100 h-100 object-fit-cover" %>
+
+                  <% end %>
+
+                </div>
+
+
+                <!-- 投稿情報 -->
+                <div class="card-body bg-warning-subtle">
+
+                  <!-- ユーザー名 -->
+                  <p class="small fw-bold mb-2">
+                    <%= post.user.name %>
+                  </p>
+
+
+                  <!-- タイトル -->
+                  <h5 class="fw-bold mb-0">
+                    <%= post.title %>
+                  </h5>
+
+
+                  <!-- 投稿日 -->
+                  <p class="small mb-0">
+                    <%= post.created_at.strftime("%Y/%m/%d") %>
+                  </p>
+
+                </div>
+
+              </div>
+
+            <% end %>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% else %>
+
+      <!-- 検索結果なし -->
+      <div class="text-center py-5">
+
+        <p class="text-muted mb-0">
+          条件に一致するレシピが見つかりませんでした。
+        </p>
+
+      </div>
+
+    <% end %>
+
+
+  <% elsif @search_type == "user" %>
+
+    <!-- =========================
+         ユーザー検索結果
+    ========================== -->
+
+    <% if @users.present? %>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+
+        <% @users.each do |user| %>
+
+          <div class="col">
+
+            <%= link_to public_user_path(user),
+                        class: "text-decoration-none text-dark" do %>
+
+              <div class="card border-0 rounded-3 h-100">
+
+                <div class="card-body bg-warning-subtle">
+
+                  <p class="fw-bold mb-0">
+                    <%= user.name %>
+                  </p>
+
+                </div>
+
+              </div>
+
+            <% end %>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% else %>
+
+      <div class="text-center py-5">
+
+        <p class="text-muted mb-0">
+          ユーザーが見つかりませんでした。
+        </p>
+
+      </div>
+
+    <% end %>
+
+
+  <% else %>
+
+    <div class="text-center py-5">
+
+      <p class="text-muted mb-0">
+        検索条件を入力してください。
+      </p>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+<%= render "layouts/footer" %>

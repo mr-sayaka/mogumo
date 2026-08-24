@@ -150,4 +150,155 @@
 
 </div>
 
+<!-- =========================
+     コメント
+========================== -->
+
+<div class="row justify-content-center mt-5">
+
+  <div class="col-12 col-lg-9">
+
+    <h3 class="fw-bold mb-4">
+      コメント
+    </h3>
+
+
+    <!-- コメント投稿フォーム -->
+    <div class="card border-0 bg-light mb-4">
+
+      <div class="card-body p-4">
+
+        <%= form_with model: [@post, Comment.new],
+                      url: public_post_comments_path(@post) do |f| %>
+
+          <div class="mb-3">
+
+            <%= f.text_area :body,
+                            rows: 4,
+                            class: "form-control",
+                            placeholder: "コメントを入力してください" %>
+
+          </div>
+
+          <div class="text-end">
+
+            <%= f.submit "コメントする",
+                         class: "btn btn-success rounded-pill px-4" %>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+
+    <!-- コメント一覧 -->
+    <% if @post.comments.present? %>
+
+      <% @post.comments.order(created_at: :desc).each do |comment| %>
+
+        <div class="border-bottom py-3">
+
+          <!-- ユーザー名・日時 -->
+          <div class="d-flex justify-content-between align-items-center">
+
+            <%= link_to comment.user.name,
+                        public_user_path(comment.user),
+                        class: "text-decoration-none fw-bold text-dark" %>
+
+            <small class="text-muted">
+              <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
+            </small>
+
+          </div>
+
+
+          <!-- コメント本文 -->
+          <div class="mt-2">
+
+            <%= simple_format(comment.body) %>
+
+          </div>
+
+
+          <!-- 自分のコメントのみ編集・削除 -->
+          <% if comment.user == Current.user %>
+
+            <div class="text-end mt-2">
+
+              <!-- 編集ボタン -->
+              <button type="button"
+                      class="btn btn-outline-primary btn-sm rounded-pill px-3 me-1"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#comment-edit-<%= comment.id %>">
+                編集
+              </button>
+
+
+              <!-- 削除 -->
+              <%= link_to "削除",
+                          public_post_comment_path(@post, comment),
+                          data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "このコメントを削除しますか？"
+                          },
+                          class: "btn btn-outline-danger btn-sm rounded-pill px-3" %>
+
+            </div>
+
+
+            <!-- 編集フォーム -->
+            <div class="collapse mt-3"
+                 id="comment-edit-<%= comment.id %>">
+
+              <%= form_with model: comment,
+                            url: public_post_comment_path(@post, comment),
+                            method: :patch do |f| %>
+
+                <div class="mb-2">
+
+                  <%= f.text_area :body,
+                                  rows: 3,
+                                  class: "form-control" %>
+
+                </div>
+
+                <div class="text-end">
+
+                  <%= f.submit "保存",
+                               class: "btn btn-success btn-sm rounded-pill px-3 me-1" %>
+
+                  <button type="button"
+                          class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#comment-edit-<%= comment.id %>">
+                    キャンセル
+                  </button>
+
+                </div>
+
+              <% end %>
+
+            </div>
+
+          <% end %>
+
+        </div>
+
+      <% end %>
+
+    <% else %>
+
+      <p class="text-muted">
+        まだコメントはありません。
+      </p>
+
+    <% end %>
+
+  </div>
+
+</div>
+
 <%= render "layouts/footer" %>
