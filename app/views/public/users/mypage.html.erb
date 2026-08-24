@@ -25,6 +25,7 @@
             </p>
           </div>
 
+
           <div class="mb-4">
             <strong>メールアドレス</strong>
             <p class="mb-0">
@@ -40,6 +41,78 @@
 
         </div>
       </div>
+
+      <!-- 自分の投稿 -->
+      <div class="card shadow-sm rounded-4 mb-5">
+        <div class="card-body p-4">
+                              
+          <h4 class="fw-bold mb-4">
+            自分の投稿
+          </h4>
+                              
+          <% if @posts.any? %>
+                              
+            <div class="row g-4">
+                              
+              <% @posts.each do |post| %>
+              
+                <div class="col-md-6">
+              
+                  <div class="card h-100 shadow-sm border-0">
+              
+                    <!-- 投稿画像 -->
+                    <% if post.image.attached? %>
+                      <%= image_tag post.image,
+                                    class: "card-img-top",
+                                    style: "height: 180px; object-fit: cover;" %>
+                    <% end %>
+                                    
+                    <div class="card-body">
+                                    
+                      <!-- タイトル -->
+                      <h5 class="fw-bold mb-3">
+                        <%= post.title %>
+                      </h5>
+                                    
+                      <!-- 対象年齢 -->
+                      <% if post.target_age.present? %>
+                        <p class="small text-muted mb-2">
+                          対象年齢：<%= post.target_age %>
+                        </p>
+                      <% end %>
+                                    
+                      <!-- 投稿日 -->
+                      <p class="small text-muted mb-3">
+                        <%= post.created_at.strftime("%Y年%m月%d日") %>
+                      </p>
+                                    
+                      <!-- 詳細を見る -->
+                      <%= link_to "詳細を見る",
+                                  public_post_path(post),
+                                  class: "btn btn-outline-success rounded-pill px-4" %>
+                                  
+                    </div>
+                                  
+                  </div>
+                                  
+                </div>
+                                  
+              <% end %>
+                                  
+            </div>
+                                  
+          <% else %>
+                                  
+            <p class="text-center text-muted mb-0">
+              まだ投稿がありません。
+            </p>
+                                  
+          <% end %>
+                                  
+        </div>
+      </div>
+
+
       <!-- 退会 -->
       <div class="text-center mt-5">
 
