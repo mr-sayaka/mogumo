@@ -52,6 +52,10 @@
               <p class="small mb-0">
                 <%= post.created_at.strftime("%Y/%m/%d") %>
               </p>
+              <p class="small mb-0">
+                <i class="bi bi-chat"></i>
+                <%= post.comments.count %>
+              </p>
             </div>
           </div>
         <% end %>

@@ -67,9 +67,17 @@
             <!-- 対象年齢 -->
             <div class="mb-4">
               <%= f.label :target_age, "対象年齢", class: "form-label" %>
-              <%= f.text_field :target_age,
-                    class: "form-control",
-                    placeholder: "例：9〜11ヶ月" %>
+                                
+              <%= f.select :target_age,
+                           [
+                             ["対象年齢を選択してください", ""],
+                             ["5〜6ヶ月", "5〜6ヶ月"],
+                             ["7〜8ヶ月", "7〜8ヶ月"],
+                             ["9〜11ヶ月", "9〜11ヶ月"],
+                             ["1歳〜", "1歳〜"]
+                           ],
+                           {},
+                           class: "form-select" %>
             </div>
 
             <!-- 材料 -->

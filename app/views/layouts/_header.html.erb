@@ -1,90 +1,209 @@
 <header>
 
-  <!-- 上段：ロゴ + ユーザーアイコン -->
+<!-- =========================
+     検索エリア
+========================== -->
+<% if authenticated? %>
+  <div class="bg-success-subtle">
+    <div class="container">
+      <div class="d-flex justify-content-center align-items-center py-2">
+
+        <%= form_with url: public_search_path,
+                      method: :get,
+                      local: true,
+                      class: "d-flex align-items-center justify-content-center gap-2 w-100" do |f| %>
+
+          <!-- 投稿検索であることを指定 -->
+          <%= hidden_field_tag :search_type, "post" %>
+
+          <!-- 対象年齢 -->
+          <%= f.select :target_age,
+                       [
+                         ["対象年齢", ""],
+                         ["5〜6ヶ月", "5〜6ヶ月"],
+                         ["7〜8ヶ月", "7〜8ヶ月"],
+                         ["9〜11ヶ月", "9〜11ヶ月"],
+                         ["1歳〜", "1歳〜"]
+                       ],
+                       {},
+                       class: "form-select rounded-pill",
+                       style: "max-width: 180px;" %>
+
+
+          <!-- キーワード検索 -->
+          <div class="input-group" style="max-width: 360px;">
+
+            <span class="input-group-text bg-white border-0 rounded-start-pill">
+              <i class="bi bi-search"></i>
+            </span>
+
+            <%= f.text_field :keyword,
+                             class: "form-control border-0 rounded-end-pill",
+                             placeholder: "食材・料理名など" %>
+
+          </div>
+
+
+          <!-- 検索ボタン -->
+          <%= f.submit "検索",
+                       class: "btn btn-light rounded-pill px-4" %>
+
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+  <!-- =========================
+       ロゴ + ユーザーメニュー
+  ========================== -->
   <div class="container">
 
-    <div class="position-relative d-flex justify-content-end align-items-center py-4">
+    <div class="position-relative d-flex justify-content-end align-items-center py-3">
 
-      <!-- ロゴ（画面中央） -->
-      <div class="position-absolute start-50 translate-middle-x">
+      <!-- ロゴ -->
+      <div class="position-absolute top-50 start-50 translate-middle">
+
         <%= link_to root_path do %>
+
           <%= image_tag "mogumo_logo.png",
                         alt: "mogumo",
                         width: "250" %>
+
         <% end %>
+
       </div>
-        
+
+
       <!-- 右側メニュー -->
-      <div class="d-flex gap-3">
-        
+      <div class="d-flex gap-2">
+
         <% if authenticated? %>
-        
+
+          <!-- マイページ -->
           <%= link_to public_mypage_path,
                       class: "text-decoration-none text-dark text-center" do %>
-            <i class="bi bi-person-circle fs-2"></i>
-            <div>マイページ</div>
+
+            <div class="rounded-circle border border-success-subtle
+                        d-flex flex-column justify-content-center align-items-center"
+                 style="width: 66px; height: 66px;">
+
+              <i class="bi bi-person-circle fs-4"></i>
+
+              <small>マイページ</small>
+
+            </div>
+
           <% end %>
-                      
+
+
+          <!-- ログアウト -->
           <%= link_to public_session_path,
                       data: { turbo_method: :delete },
                       class: "text-decoration-none text-dark text-center" do %>
-            <i class="bi bi-box-arrow-right fs-2"></i>
-            <div>ログアウト</div>
+
+            <div class="rounded-circle border border-success-subtle
+                        d-flex flex-column justify-content-center align-items-center"
+                 style="width: 66px; height: 66px;">
+
+              <i class="bi bi-box-arrow-right fs-4"></i>
+
+              <small>ログアウト</small>
+
+            </div>
+
           <% end %>
-                      
+
+
         <% else %>
-                      
+
+          <!-- 会員登録 -->
           <%= link_to new_public_user_path,
                       class: "text-decoration-none text-dark text-center" do %>
-            <i class="bi bi-pencil-square fs-2"></i>
-            <div>会員登録</div>
+
+            <div class="rounded-circle border border-success-subtle
+                        d-flex flex-column justify-content-center align-items-center"
+                 style="width: 66px; height: 66px;">
+
+              <i class="bi bi-pencil-square fs-4"></i>
+
+              <small>会員登録</small>
+
+            </div>
+
           <% end %>
-                      
+
+
+          <!-- ログイン -->
           <%= link_to new_public_session_path,
                       class: "text-decoration-none text-dark text-center" do %>
-            <i class="bi bi-person fs-2"></i>
-            <div>ログイン</div>
+
+            <div class="rounded-circle border border-success-subtle
+                        d-flex flex-column justify-content-center align-items-center"
+                 style="width: 66px; height: 66px;">
+
+              <i class="bi bi-person fs-4"></i>
+
+              <small>ログイン</small>
+
+            </div>
+
           <% end %>
-                      
+
         <% end %>
-                      
+
       </div>
-                      
+
     </div>
 
 
-    <!-- 下段：ナビゲーション -->
+    <!-- =========================
+         ナビゲーション
+    ========================== -->
     <nav>
 
-      <ul class="nav justify-content-center align-items-stretch py-3">
+      <ul class="nav justify-content-center align-items-center mb-0">
 
+        <!-- About -->
         <li class="nav-item border-start">
+
           <%= link_to "About",
                       homes_about_path,
-                      class: "nav-link text-dark px-5" %>
+                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
+
         </li>
 
 
-          <li class="nav-item border-start">
+        <!-- 投稿一覧 -->
+        <li class="nav-item border-start">
+
           <%= link_to "投稿一覧",
                       public_posts_path,
-                      class: "nav-link text-dark px-5" %>
+                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
+
         </li>
 
 
-       <li class="nav-item border-start">
+        <!-- コミュニティ一覧 -->
+        <li class="nav-item border-start">
+
           <%= link_to "コミュニティ一覧",
                       root_path,
-                      class: "nav-link text-dark px-5" %>
+                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
+
         </li>
 
 
-       <li class="nav-item border-start border-end">
+        <!-- ユーザー一覧 -->
+        <li class="nav-item border-start border-end">
+
           <%= link_to "ユーザー一覧",
                       public_users_path,
-                      class: "nav-link text-dark px-5" %>
-        </li>
+                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
 
+        </li>
 
       </ul>
 
