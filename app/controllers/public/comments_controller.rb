@@ -1,4 +1,4 @@
-class Admin::CommentsController < Admin::BaseController
+class Public::CommentsController < ApplicationController
   before_action :require_authentication
   before_action :set_post
   before_action :set_comment, only: [:update, :destroy]
@@ -54,4 +54,5 @@ class Admin::CommentsController < Admin::BaseController
   def comment_params
     params.require(:comment).permit(:body)
   end
+
 end
