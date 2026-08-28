@@ -11,6 +11,7 @@ class Public::UsersController < ApplicationController
   def mypage
   @user = Current.user
   @posts = @user.posts.order(created_at: :desc)
+  @joined_groups = @user.joined_groups
   end
 
   def new

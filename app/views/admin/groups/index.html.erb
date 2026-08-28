@@ -1,0 +1,84 @@
+<div class="container py-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h1 class="h3 mb-0">グループ一覧</h1>
+
+    <%= link_to "グループを作成",
+                new_admin_group_path,
+                class: "btn btn-primary" %>
+
+  </div>
+
+  <% if @groups.any? %>
+
+    <div class="row g-4">
+
+      <% @groups.each do |group| %>
+
+        <div class="col-md-6 col-lg-4">
+
+          <div class="card h-100 shadow-sm">
+
+            <div class="card-body d-flex flex-column">
+
+              <h2 class="h5 mb-3">
+                <%= group.name %>
+              </h2>
+
+              <p class="text-muted">
+                <%= truncate(group.description, length: 100) %>
+              </p>
+
+              <p class="small text-muted mb-3">
+                テーマ：
+                <%= group.theme %>
+              </p>
+
+              <div class="mt-auto">
+
+                <%= link_to "詳細",
+                            admin_group_path(group),
+                            class: "btn btn-outline-primary btn-sm" %>
+
+                <%= link_to "編集",
+                            edit_admin_group_path(group),
+                            class: "btn btn-outline-secondary btn-sm" %>
+
+                <%= button_to "削除",
+                              admin_group_path(group),
+                              method: :delete,
+                              class: "btn btn-outline-danger btn-sm",
+                              data: {
+                                turbo_confirm: "このグループを削除しますか？"
+                              } %>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  <% else %>
+
+    <div class="card shadow-sm">
+
+      <div class="card-body">
+
+        <p class="text-muted mb-0">
+          現在グループはありません。
+        </p>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+</div>

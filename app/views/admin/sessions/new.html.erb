@@ -1,0 +1,40 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+
+          <h1 class="h4 text-center mb-4">
+            管理者ログイン
+          </h1>
+
+          <%= form_with url: admin_session_path, method: :post do |f| %>
+
+            <div class="mb-3">
+              <%= f.label :email_address, "メールアドレス", class: "form-label" %>
+              <%= f.email_field :email_address,
+                    class: "form-control",
+                    required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password, "パスワード", class: "form-label" %>
+              <%= f.password_field :password,
+                    class: "form-control",
+                    required: true %>
+            </div>
+
+            <div class="d-grid">
+              <%= f.submit "ログイン",
+                    class: "btn btn-primary" %>
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

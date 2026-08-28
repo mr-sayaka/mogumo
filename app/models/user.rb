@@ -1,11 +1,22 @@
 class User < ApplicationRecord
   has_secure_password
-
   has_one_attached :profile_image
 
   has_many :sessions, as: :account, dependent: :destroy
-
   has_many :posts, dependent: :destroy
+  has_many :groups, dependent: :destroy
+
+  has_many :group_memberships, dependent: :destroy
+  has_many :joined_groups,
+           through: :group_memberships,
+           source: :group
+
+  def member_of?(group)
+    group.group_memberships.exists?(
+      user_id: id,
+      status: "approved"
+    )
+  end
 
   has_many :comments, dependent: :destroy
 
@@ -22,4 +33,5 @@ class User < ApplicationRecord
             presence: true,
             length: { minimum: 6 },
             allow_nil: true
+
 end
