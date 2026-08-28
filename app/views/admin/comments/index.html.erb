@@ -1,0 +1,79 @@
+<h1 class="h3 mb-4">コメント一覧</h1>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+
+    <% if @comments.any? %>
+
+      <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+          <thead>
+            <tr>
+              <th>コメント</th>
+              <th>投稿者</th>
+              <th>投稿</th>
+              <th>投稿日</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <% @comments.each do |comment| %>
+
+              <tr>
+
+                <!-- コメント -->
+                <td>
+                  <%= truncate(comment.body, length: 80) %>
+                </td>
+
+                <!-- コメントしたユーザー -->
+                <td>
+                  <%= comment.user.name %>
+                </td>
+
+                <!-- コメントされた投稿 -->
+                <td>
+                  <%= link_to comment.post.title,
+                              public_post_path(comment.post),
+                              class: "text-decoration-none" %>
+                </td>
+
+                <!-- 投稿日時 -->
+                <td>
+                  <%= l comment.created_at, format: :short %>
+                </td>
+
+                <!-- 削除 -->
+                <td>
+                  <%= button_to "削除",
+                                admin_comment_path(comment),
+                                method: :delete,
+                                data: {
+                                  turbo_confirm: "このコメントを削除しますか？"
+                                },
+                                class: "btn btn-sm btn-outline-danger" %>
+                </td>
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    <% else %>
+
+      <p class="text-muted mb-0">
+        コメントはありません。
+      </p>
+
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<h1 class="h3 mb-4">管理者一覧</h1>
+
+<%= link_to "新規管理者登録",
+            new_admin_admin_path,
+            class: "btn btn-primary mb-3" %>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>メールアドレス</th>
+          <th>登録日時</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @admins.each do |admin| %>
+          <tr>
+            <td><%= admin.name %></td>
+            <td><%= admin.email_address %></td>
+            <td><%= l admin.created_at, format: :short %></td>
+            <td>
+              <%= link_to "詳細",
+                          admin_admin_path(admin),
+                          class: "btn btn-sm btn-outline-primary" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

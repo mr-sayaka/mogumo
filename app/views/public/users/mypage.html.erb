@@ -112,6 +112,79 @@
         </div>
       </div>
 
+                                        
+      <!-- 参加中のコミュニティー -->
+                                        
+      <div class="card shadow-sm mb-4">
+                                        
+        <div class="card-body">
+                                        
+          <div class="d-flex justify-content-between align-items-center mb-3">
+                                        
+            <h2 class="h5 mb-0">
+              参加中のコミュニティー
+            </h2>
+                                        
+            <%= link_to "コミュニティーを探す",
+                        public_groups_path,
+                        class: "btn btn-sm btn-outline-primary" %>
+                        
+          </div>
+                        
+          <% if @joined_groups.any? %>
+                        
+            <div class="row g-3">
+                        
+              <% @joined_groups.each do |group| %>
+              
+                <div class="col-md-6 col-lg-4">
+              
+                  <div class="card h-100">
+              
+                    <div class="card-body">
+              
+                      <h3 class="h6 mb-2">
+                        <%= group.name %>
+                      </h3>
+              
+                      <% if group.description.present? %>
+                        <p class="small text-muted mb-3">
+                          <%= truncate(group.description, length: 80) %>
+                        </p>
+                      <% end %>
+              
+                      <%= link_to "コミュニティーを見る",
+                                  public_group_path(group),
+                                  class: "btn btn-sm btn-outline-primary w-100" %>
+                                  
+                    </div>
+                                  
+                  </div>
+                                  
+                </div>
+                                  
+              <% end %>
+                                  
+            </div>
+                                  
+          <% else %>
+
+      <p class="text-muted mb-3">
+        まだコミュニティーに参加していません。
+      </p>
+
+      <%= link_to "コミュニティーを探す",
+                  public_groups_path,
+                  class: "btn btn-primary" %>
+
+    <% end %>
+
+  </div>
+
+</div>
+
+
+
 
       <!-- 退会 -->
       <div class="text-center mt-5">

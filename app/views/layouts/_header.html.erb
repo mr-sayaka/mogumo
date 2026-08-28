@@ -1,69 +1,79 @@
 <header>
 
-<!-- =========================
-     検索エリア
-========================== -->
-<% if authenticated? %>
-  <div class="bg-success-subtle">
-    <div class="container">
-      <div class="d-flex justify-content-center align-items-center py-2">
+  <!-- =========================
+       検索エリア
+  ========================== -->
 
-        <%= form_with url: public_search_path,
-                      method: :get,
-                      local: true,
-                      class: "d-flex align-items-center justify-content-center gap-2 w-100" do |f| %>
+  <% if authenticated? %>
 
-          <!-- 投稿検索であることを指定 -->
-          <%= hidden_field_tag :search_type, "post" %>
+    <div style="background-color: #BAC37E;">
 
-          <!-- 対象年齢 -->
-          <%= f.select :target_age,
-                       [
-                         ["対象年齢", ""],
-                         ["5〜6ヶ月", "5〜6ヶ月"],
-                         ["7〜8ヶ月", "7〜8ヶ月"],
-                         ["9〜11ヶ月", "9〜11ヶ月"],
-                         ["1歳〜", "1歳〜"]
-                       ],
-                       {},
-                       class: "form-select rounded-pill",
-                       style: "max-width: 180px;" %>
+      <div class="container">
 
+        <div class="d-flex justify-content-center align-items-center py-2">
 
-          <!-- キーワード検索 -->
-          <div class="input-group" style="max-width: 360px;">
+          <%= form_with url: public_search_path,
+                        method: :get,
+                        local: true,
+                        class: "d-flex align-items-center justify-content-center gap-2 w-100" do |f| %>
 
-            <span class="input-group-text bg-white border-0 rounded-start-pill">
-              <i class="bi bi-search"></i>
-            </span>
+            <!-- 投稿検索 -->
+            <%= hidden_field_tag :search_type, "post" %>
 
-            <%= f.text_field :keyword,
-                             class: "form-control border-0 rounded-end-pill",
-                             placeholder: "食材・料理名など" %>
+            <!-- 対象年齢 -->
+            <%= f.select :target_age,
+                         [
+                           ["対象年齢", ""],
+                           ["5〜6ヶ月", "5〜6ヶ月"],
+                           ["7〜8ヶ月", "7〜8ヶ月"],
+                           ["9〜11ヶ月", "9〜11ヶ月"],
+                           ["1歳〜", "1歳〜"]
+                         ],
+                         {},
+                         class: "form-select rounded-pill",
+                         style: "max-width: 180px;" %>
 
-          </div>
+            <!-- キーワード検索 -->
+            <div class="input-group" style="max-width: 360px;">
 
+              <span class="input-group-text bg-white border-0 rounded-start-pill">
 
-          <!-- 検索ボタン -->
-          <%= f.submit "検索",
-                       class: "btn btn-light rounded-pill px-4" %>
+                <i class="fa-solid fa-magnifying-glass"
+                   style="color: #BAC37E;"></i>
 
-        <% end %>
+              </span>
+
+              <%= f.text_field :keyword,
+                               class: "form-control border-0 rounded-end-pill",
+                               placeholder: "食材・料理名など" %>
+
+            </div>
+
+            <!-- 検索ボタン -->
+            <%= f.submit "検索",
+                         class: "btn btn-light rounded-pill px-4" %>
+
+          <% end %>
+
+        </div>
 
       </div>
+
     </div>
-  </div>
-<% end %>
+
+  <% end %>
 
 
   <!-- =========================
        ロゴ + ユーザーメニュー
   ========================== -->
+
   <div class="container">
 
     <div class="position-relative d-flex justify-content-end align-items-center py-3">
 
       <!-- ロゴ -->
+
       <div class="position-absolute top-50 start-50 translate-middle">
 
         <%= link_to root_path do %>
@@ -78,77 +88,102 @@
 
 
       <!-- 右側メニュー -->
+
       <div class="d-flex gap-2">
 
         <% if authenticated? %>
 
-          <!-- マイページ -->
+          <!-- =========================
+               マイページ
+          ========================== -->
+
           <%= link_to public_mypage_path,
-                      class: "text-decoration-none text-dark text-center" do %>
+                      class: "text-decoration-none text-center rounded-circle
+                             d-flex flex-column justify-content-center align-items-center
+                             border",
+                      style: "width: 76px;
+                             height: 76px;
+                             background-color: #BAC37E;
+                             color: #FFFFFF;
+                             border-color: #BAC37E !important;",
+                      onmouseover: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';",
+                      onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
 
-            <div class="rounded-circle border border-success-subtle
-                        d-flex flex-column justify-content-center align-items-center"
-                 style="width: 66px; height: 66px;">
+            <i class="fa-regular fa-user fs-6 mb-1"></i>
 
-              <i class="bi bi-person-circle fs-4"></i>
-
-              <small>マイページ</small>
-
-            </div>
+            <small class="small">マイページ</small>
 
           <% end %>
 
 
-          <!-- ログアウト -->
+          <!-- =========================
+               ログアウト
+          ========================== -->
+
           <%= link_to public_session_path,
                       data: { turbo_method: :delete },
-                      class: "text-decoration-none text-dark text-center" do %>
+                      class: "text-decoration-none text-center rounded-circle
+                             d-flex flex-column justify-content-center align-items-center
+                             border",
+                      style: "width: 76px;
+                             height: 76px;
+                             background-color: #FFFFFF;
+                             color: #BAC37E;
+                             border-color: #BAC37E !important;",
+                      onmouseover: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';",
+                      onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
 
-            <div class="rounded-circle border border-success-subtle
-                        d-flex flex-column justify-content-center align-items-center"
-                 style="width: 66px; height: 66px;">
+            <i class="fa-solid fa-arrow-right-from-bracket fs-6 mb-1"></i>
 
-              <i class="bi bi-box-arrow-right fs-4"></i>
-
-              <small>ログアウト</small>
-
-            </div>
+            <small class="small">ログアウト</small>
 
           <% end %>
 
 
         <% else %>
 
-          <!-- 会員登録 -->
+          <!-- =========================
+               会員登録
+          ========================== -->
+
           <%= link_to new_public_user_path,
-                      class: "text-decoration-none text-dark text-center" do %>
+                      class: "text-decoration-none text-center rounded-circle
+                             d-flex flex-column justify-content-center align-items-center
+                             border",
+                      style: "width: 76px;
+                             height: 76px;
+                             background-color: #BAC37E;
+                             color: #FFFFFF;
+                             border-color: #BAC37E !important;",
+                      onmouseover: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';",
+                      onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
 
-            <div class="rounded-circle border border-success-subtle
-                        d-flex flex-column justify-content-center align-items-center"
-                 style="width: 66px; height: 66px;">
+            <i class="fa-regular fa-pen-to-square fs-6 mb-1"></i>
 
-              <i class="bi bi-pencil-square fs-4"></i>
-
-              <small>会員登録</small>
-
-            </div>
+            <small class="small">会員登録</small>
 
           <% end %>
 
 
-          <!-- ログイン -->
+          <!-- =========================
+               ログイン
+          ========================== -->
+
           <%= link_to new_public_session_path,
-                      class: "text-decoration-none text-dark text-center" do %>
+                      class: "text-decoration-none text-center rounded-circle
+                             d-flex flex-column justify-content-center align-items-center
+                             border",
+                      style: "width: 76px;
+                             height: 76px;
+                             background-color: #FFFFFF;
+                             color: #BAC37E;
+                             border-color: #BAC37E !important;",
+                      onmouseover: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';",
+                      onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
 
-            <div class="rounded-circle border border-success-subtle
-                        d-flex flex-column justify-content-center align-items-center"
-                 style="width: 66px; height: 66px;">
+            <i class="fa-regular fa-user fs-6 mb-1"></i>
 
-              <i class="bi bi-person fs-4"></i>
-
-              <small>ログイン</small>
-
-            </div>
+            <small class="small">ログイン</small>
 
           <% end %>
 
@@ -162,11 +197,13 @@
     <!-- =========================
          ナビゲーション
     ========================== -->
+
     <nav>
 
       <ul class="nav justify-content-center align-items-center mb-0">
 
         <!-- About -->
+
         <li class="nav-item border-start">
 
           <%= link_to "About",
@@ -177,6 +214,7 @@
 
 
         <!-- 投稿一覧 -->
+
         <li class="nav-item border-start">
 
           <%= link_to "投稿一覧",
@@ -187,16 +225,18 @@
 
 
         <!-- コミュニティ一覧 -->
+
         <li class="nav-item border-start">
 
           <%= link_to "コミュニティ一覧",
-                      root_path,
+                      public_groups_path,
                       class: "nav-link text-dark fw-semibold px-5 py-3" %>
 
         </li>
 
 
         <!-- ユーザー一覧 -->
+
         <li class="nav-item border-start border-end">
 
           <%= link_to "ユーザー一覧",

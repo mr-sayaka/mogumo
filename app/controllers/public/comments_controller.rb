@@ -1,4 +1,4 @@
-class Public::CommentsController < ApplicationController
+class Admin::CommentsController < Admin::BaseController
   before_action :require_authentication
   before_action :set_post
   before_action :set_comment, only: [:update, :destroy]

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # ユーザー登録・ログイン
   namespace :public do
+
     resources :users, only: [:new, :create, :index, :show, :edit, :update, :destroy]
 
     resource :session, only: [:new, :create, :destroy]
@@ -18,8 +19,14 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :update, :destroy]
     end
 
+    # グループ
+    resources :groups, only: [:index, :show] do
+      resource :membership, only: [:create, :destroy]
+    end
+
     # 検索
     get "search", to: "searches#index"
+
   end
 
 
@@ -38,12 +45,14 @@ Rails.application.routes.draw do
 #  # フォロー
 #  resources :relationships, only: [:create, :destroy]
 #
-#  # 管理者
-#  namespace :admin do
-#    resource :session, only: [:new, :create, :destroy]
-#
-#    resources :communities
-#    resources :users, only: [:index, :show, :destroy]
-#    resources :posts, only: [:index, :show, :destroy]
-#  end
+    # 管理者
+    namespace :admin do
+      root "dashboards#index"
+      
+      resource :session, only: [:new, :create, :destroy]
+      
+      resources :admins
+      resources :comments, only: [:index, :destroy]
+      resources :groups
+    end
 end

@@ -51,6 +51,35 @@
                     placeholder: "この離乳食について紹介してください" %>
             </div>
 
+            <!-- 公開範囲 -->
+            <div class="mb-4">
+              <%= f.label :visibility, "公開範囲", class: "form-label" %>
+
+              <%= f.select :visibility,
+                           [
+                             ["全体公開", "public"],
+                             ["コミュニティー限定", "group"]
+                           ],
+                           {},
+                           class: "form-select" %>
+            </div>
+                          
+            <!-- コミュニティー -->
+            <div class="mb-4">
+              <%= f.label :group_id, "コミュニティー", class: "form-label" %>
+                          
+              <%= f.collection_select :group_id,
+                                      @joined_groups,
+                                      :id,
+                                      :name,
+                                      { include_blank: "コミュニティーを選択してください" },
+                                      { class: "form-select" } %>
+                                      
+              <div class="form-text">
+                コミュニティー限定を選択した場合、参加中のコミュニティーを選択してください。
+              </div>
+              
+            </div>
             <!-- 対象年齢 -->
             <div class="mb-4">
               <%= f.label :target_age, "対象年齢", class: "form-label" %>

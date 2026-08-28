@@ -1,12 +1,265 @@
 <%= render "layouts/header" %>
 
-<h1>About</h1>
+<div class="container py-5">
 
-<p>
-このサイトは、料理レシピを投稿・共有し、
-ユーザー同士が交流できるコミュニティサイトです。
+  <!-- タイトル -->
+
+  <div class="text-center mb-5">
+
+
+<h2 class="fw-bold mb-3">
+  <span class="small text-secondary">・・・・</span>
+  mogumoについて
+  <span class="small text-secondary">・・・・</span>
+</h2>
+
+<p class="text-secondary mb-0">
+  離乳食を通して、子育てをもっと楽しく。
 </p>
 
-<%= link_to "Topへ戻る", root_path %>
+
+  </div>
+
+  <!-- mogumoとは -->
+
+  <div class="row justify-content-center mb-5">
+
+
+<div class="col-12 col-lg-9">
+
+  <div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body p-4 p-md-5">
+
+      <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
+        mogumoとは
+      </h2>
+
+      <p class="lh-lg mb-3">
+        mogumoは、離乳食のレシピを投稿・共有できる
+        離乳食レシピサイトです。
+      </p>
+
+      <p class="lh-lg mb-0">
+        「今日の離乳食は何を作ろう？」
+        「他の家庭ではどんな離乳食を作っているんだろう？」
+        そんな子育て中の悩みを解決するために、
+        レシピを通してユーザー同士が情報交換できる場所を目指しています。
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  <!-- mogumoでできること -->
+
+  <div class="text-center mb-4">
+
+
+<h2 class="fw-bold">
+  <span class="small text-secondary">・・・・</span>
+  mogumoでできること
+  <span class="small text-secondary">・・・・</span>
+</h2>
+
+
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+
+
+<!-- レシピ投稿 -->
+<div class="col">
+
+  <div class="card border-0 shadow-sm rounded-4 h-100">
+
+    <div class="card-body text-center p-4">
+
+      <div class="mb-3">
+        <i class="bi bi-journal-plus fs-1 text-success"></i>
+      </div>
+
+      <h3 class="h5 fw-bold mb-3">
+        レシピを投稿
+      </h3>
+
+      <p class="text-secondary small lh-lg mb-0">
+        自分が作った離乳食のレシピを投稿して、
+        他のユーザーと共有できます。
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- レシピ検索 -->
+<div class="col">
+
+  <div class="card border-0 shadow-sm rounded-4 h-100">
+
+    <div class="card-body text-center p-4">
+
+      <div class="mb-3">
+        <i class="bi bi-search fs-1 text-success"></i>
+      </div>
+
+      <h3 class="h5 fw-bold mb-3">
+        レシピを探す
+      </h3>
+
+      <p class="text-secondary small lh-lg mb-0">
+        みんなが投稿したレシピから、
+        気になる離乳食を探すことができます。
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- コミュニティー -->
+<div class="col">
+
+  <div class="card border-0 shadow-sm rounded-4 h-100">
+
+    <div class="card-body text-center p-4">
+
+      <div class="mb-3">
+        <i class="bi bi-people fs-1 text-success"></i>
+      </div>
+
+      <h3 class="h5 fw-bold mb-3">
+        コミュニティー
+      </h3>
+
+      <p class="text-secondary small lh-lg mb-0">
+        同じテーマに興味を持つユーザーが集まる
+        コミュニティーに参加できます。
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  <!-- コミュニティー限定レシピ -->
+
+  <div class="row justify-content-center mb-5">
+
+
+<div class="col-12 col-lg-9">
+
+  <div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body p-4 p-md-5">
+
+      <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
+        コミュニティー限定レシピ
+      </h2>
+
+      <p class="lh-lg mb-3">
+        mogumoでは、コミュニティーに参加することで、
+        そのコミュニティーで共有されている
+        限定レシピを見ることができます。
+      </p>
+
+      <p class="lh-lg mb-0">
+        月齢や離乳食の悩みなど、
+        自分に合ったコミュニティーを見つけて、
+        レシピや情報を共有してみましょう。
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+  </div>
+
+  <!-- コメント・交流 -->
+
+  <div class="row justify-content-center mb-5">
+
+
+<div class="col-12 col-lg-9">
+
+  <div class="card border-0 shadow-sm rounded-4">
+
+    <div class="card-body p-4 p-md-5">
+
+      <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
+        ユーザー同士で交流
+      </h2>
+
+      <p class="lh-lg mb-3">
+        気になるレシピにはコメントを投稿して、
+        他のユーザーと情報交換することができます。
+      </p>
+
+      <p class="lh-lg mb-0">
+        自分の経験を共有したり、
+        他の人のアイデアを参考にしたりしながら、
+        毎日の離乳食作りに役立ててください。
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+  </div>
+
+  <!-- 最後のメッセージ -->
+
+  <div class="text-center mt-5">
+
+
+<h2 class="h5 fw-bold mb-3">
+  毎日の離乳食を、もっと楽しく。
+</h2>
+
+<p class="text-secondary small mb-4">
+  mogumoでお気に入りのレシピやコミュニティーを見つけてみてください。
+</p>
+
+
+<%= link_to public_posts_path,
+            class: "btn btn-success rounded-pill px-5 me-2" do %>
+
+  レシピを見る
+
+  <i class="bi bi-chevron-right ms-2"></i>
+
+<% end %>
+
+
+<%= link_to public_groups_path,
+            class: "btn btn-outline-success rounded-pill px-5" do %>
+
+  コミュニティーを見る
+
+  <i class="bi bi-chevron-right ms-2"></i>
+
+<% end %>
+
+  </div>
+
+</div>
 
 <%= render "layouts/footer" %>
