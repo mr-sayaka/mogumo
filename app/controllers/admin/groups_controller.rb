@@ -15,7 +15,8 @@ class Admin::GroupsController < Admin::BaseController
 
   def create
     @group = Group.new(group_params)
-
+    @group.admin = Current.admin
+  
     if @group.save
       redirect_to admin_groups_path,
                   notice: "グループを作成しました。"

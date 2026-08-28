@@ -3,6 +3,16 @@
 <div class="card shadow-sm">
   <div class="card-body">
 
+    <% if @group.errors.any? %>
+      <div class="alert alert-danger">
+        <ul class="mb-0">
+          <% @group.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%= form_with model: @group,
                   url: admin_groups_path do |f| %>
 
