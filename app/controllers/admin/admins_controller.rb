@@ -51,11 +51,18 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def admin_params
-    params.require(:admin).permit(
+    permitted = params.require(:admin).permit(
       :name,
       :email_address,
       :password,
       :password_confirmation
     )
+
+    if permitted[:password].blank?
+      permitted.delete(:password)
+      permitted.delete(:password_confirmation)
+    end
+
+    permitted
   end
 end
