@@ -98,6 +98,35 @@
                     placeholder: "作り方を順番に入力してください" %>
             </div>
 
+            <!-- 公開範囲 -->
+            
+              <div class="mb-4">
+                                  
+                <%= f.label :visibility, "公開範囲", class: "form-label" %>
+                                  
+                <%= f.select :visibility,
+                             [
+                               ["全体公開", "public"],
+                               ["グループ限定", "group"]
+                             ],
+                             {},
+                             class: "form-select" %>
+              </div>
+                            
+              <!-- 公開するグループ -->
+              <div class="mb-4">
+                            
+                <%= f.label :group_id, "公開するグループ", class: "form-label" %>
+                            
+                <%= f.collection_select :group_id,
+                                        Current.user.joined_groups,
+                                        :id,
+                                        :name,
+                                        { prompt: "グループを選択してください" },
+                                        { class: "form-select" } %>
+                                        
+              </div>
+
             <!-- アレルギー -->
             <div class="mb-4">
               <%= f.label :allergy, "アレルギー情報", class: "form-label" %>
