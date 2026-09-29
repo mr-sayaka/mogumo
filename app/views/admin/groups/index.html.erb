@@ -35,24 +35,25 @@
                 <%= group.theme %>
               </p>
 
-              <div class="mt-auto">
+              <div class="mt-auto d-flex gap-2">
 
                 <%= link_to "詳細",
                             admin_group_path(group),
                             class: "btn btn-outline-primary btn-sm" %>
-
+                            
                 <%= link_to "編集",
                             edit_admin_group_path(group),
                             class: "btn btn-outline-secondary btn-sm" %>
-
+                            
                 <%= button_to "削除",
                               admin_group_path(group),
                               method: :delete,
                               class: "btn btn-outline-danger btn-sm",
+                              form_class: "d-inline",
                               data: {
                                 turbo_confirm: "このグループを削除しますか？"
                               } %>
-
+                              
               </div>
 
             </div>
