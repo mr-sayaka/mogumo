@@ -16,6 +16,41 @@
     </p>
   
   </div>
+
+
+<!-- いいね -->
+<div class="text-center mb-4">
+
+  <% if @post.likes.exists?(user: Current.user) %>
+
+    <%= button_to public_post_like_path(@post),
+                  method: :delete,
+                  class: "btn btn-link text-danger text-decoration-none p-0" do %>
+
+      <i class="fa-solid fa-heart fs-4"></i>
+      <span class="ms-1">
+        <%= @post.likes.count %>
+      </span>
+
+    <% end %>
+
+  <% else %>
+
+    <%= button_to public_post_like_path(@post),
+                  method: :post,
+                  class: "btn btn-link text-secondary text-decoration-none p-0" do %>
+
+      <i class="fa-regular fa-heart fs-4"></i>
+      <span class="ms-1">
+        <%= @post.likes.count %>
+      </span>
+
+    <% end %>
+
+  <% end %>
+
+       
+  </div>
   
   <!-- 投稿画像 -->
   <% if @post.image.attached? %>
@@ -25,8 +60,6 @@
                     style: "max-height: 300px;" %>
     </div>
   <% end %>
-
-  </div>
 
 
   <!-- 投稿内容 -->

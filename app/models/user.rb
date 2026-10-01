@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :joined_groups,
            through: :group_memberships,
            source: :group
+  has_many :likes, dependent: :destroy
 
   def member_of?(group)
     group.group_memberships.exists?(

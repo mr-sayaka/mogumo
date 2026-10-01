@@ -1,0 +1,27 @@
+<%= turbo_frame_tag "like_#{post.id}" do %>
+
+  <% if post.likes.exists?(user: Current.user) %>
+
+    <%= button_to public_post_like_path(post),
+                  method: :delete,
+                  class: "btn btn-link text-danger text-decoration-none p-0" do %>
+
+      <span class="fs-5">♥</span>
+      <%= post.likes.count %>
+
+    <% end %>
+
+  <% else %>
+
+    <%= button_to public_post_like_path(post),
+                  method: :post,
+                  class: "btn btn-link text-secondary text-decoration-none p-0" do %>
+
+      <span class="fs-5">♡</span>
+      <%= post.likes.count %>
+
+    <% end %>
+
+  <% end %>
+
+<% end %>

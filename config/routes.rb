@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     # 投稿
     resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :comments, only: [:create, :update, :destroy]
+      resource :like, only: [:create, :destroy]
     end
 
     # グループ

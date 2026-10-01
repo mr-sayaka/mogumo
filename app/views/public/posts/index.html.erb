@@ -42,82 +42,73 @@
 
   <% @posts.each do |post| %>
 
-    <div class="col">
+  <div class="col">
 
+    <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
+
+      <!-- 投稿詳細へのリンク -->
       <%= link_to public_post_path(post),
                   class: "text-decoration-none text-dark" do %>
 
-        <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
+        <!-- 画像 -->
+        <div class="ratio ratio-4x3 bg-secondary-subtle">
 
-          <!-- 画像 -->
-          <div class="ratio ratio-4x3 bg-secondary-subtle">
+          <% if post.image.attached? %>
 
-            <% if post.image.attached? %>
+            <%= image_tag post.image,
+                          class: "w-100 h-100 object-fit-cover" %>
 
-              <%= image_tag post.image,
-                            class: "w-100 h-100 object-fit-cover" %>
+          <% end %>
 
-            <% end %>
+        </div>
 
-          </div>
+        <!-- 公開状態 -->
+        <div class="px-3 pt-3">
 
+          <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+            全体公開
+          </span>
 
-          <!-- 公開状態 -->
-          <div class="px-3 pt-3">
+        </div>
 
-            <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
-              全体公開
-            </span>
+        <!-- 投稿情報 -->
+        <div class="card-body bg-warning-subtle">
 
-          </div>
+          <!-- ユーザー名 -->
+          <p class="small fw-bold mb-2">
+            <%= post.user.name %>
+          </p>
 
+          <!-- タイトル -->
+          <h5 class="fw-bold mb-3">
+            <%= post.title %>
+          </h5>
 
-          <!-- 投稿情報 -->
-          <div class="card-body bg-warning-subtle">
+          <!-- 投稿日 -->
+          <div class="d-flex justify-content-between align-items-center">
 
-            <!-- ユーザー名 -->
-            <p class="small fw-bold mb-2">
-
-              <%= post.user.name %>
-
+            <p class="small text-secondary mb-0">
+              <%= post.created_at.strftime("%Y/%m/%d") %>
             </p>
-
-
-            <!-- タイトル -->
-            <h5 class="fw-bold mb-3">
-
-              <%= post.title %>
-
-            </h5>
-
-
-            <!-- 投稿日・コメント -->
-            <div class="d-flex justify-content-between align-items-center">
-
-              <p class="small text-secondary mb-0">
-
-                <%= post.created_at.strftime("%Y/%m/%d") %>
-
-              </p>
-
-              <p class="small text-secondary mb-0">
-
-                <i class="bi bi-chat"></i>
-                <%= post.comments.count %>
-
-              </p>
 
             </div>
 
           </div>
 
-        </div>
-
       <% end %>
+
+      <!-- いいね -->
+      <div class="px-3 pb-3 bg-warning-subtle">
+                                
+        <%= render "public/likes/like_button", post: post %>
+                                
+      </div>
 
     </div>
 
-  <% end %>
+  </div>
+
+<% end %>
 
 </div>
 
