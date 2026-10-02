@@ -8,11 +8,14 @@ Rails.application.routes.draw do
   # ユーザー登録・ログイン
   namespace :public do
 
-    resources :users, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+    resources :users, only: [:new, :create, :show, :edit, :update, :destroy]
 
     resource :session, only: [:new, :create, :destroy]
 
     get "mypage", to: "users#mypage"
+
+    # いいね一覧
+    get "likes", to: "likes#index"
 
     # 投稿
     resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do

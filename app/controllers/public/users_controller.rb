@@ -4,10 +4,6 @@ class Public::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :ensure_current_user, only: [:edit, :update, :destroy]
 
-  def index
-  @users = User.order(created_at: :desc)
-  end
-
   def mypage
   @user = Current.user
   @posts = @user.posts.order(created_at: :desc)

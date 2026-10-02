@@ -1,0 +1,147 @@
+<%= render "layouts/header" %>
+
+<div class="container py-5">
+
+  <!-- タイトル -->
+
+  <div class="d-flex justify-content-center align-items-center position-relative mb-5">
+
+    <h2 class="fw-bold mb-0">
+      <span class="small text-secondary">・・・・</span>
+      いいね一覧
+      <span class="small text-secondary">・・・・</span>
+    </h2>
+
+  </div>
+
+  <!-- 説明 -->
+
+  <div class="text-center mb-5">
+
+    <p class="text-secondary mb-0">
+      いいねしたお気に入りのレシピを見てみましょう。
+    </p>
+
+  </div>
+
+  <!-- いいね一覧 -->
+
+  <% if @posts.any? %>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+
+      <% @posts.each do |post| %>
+
+        <div class="col">
+
+          <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
+
+            <!-- 投稿詳細へのリンク -->
+
+            <%= link_to public_post_path(post),
+                        class: "text-decoration-none text-dark" do %>
+
+              <!-- 画像 -->
+
+              <div class="ratio ratio-4x3 bg-secondary-subtle">
+
+                <% if post.image.attached? %>
+
+                  <%= image_tag post.image,
+                                class: "w-100 h-100 object-fit-cover" %>
+
+                <% end %>
+
+              </div>
+
+              <!-- 公開状態 -->
+
+              <div class="px-3 pt-3">
+
+                <% if post.visibility == "public" %>
+
+                  <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+                    全体公開
+                  </span>
+
+                <% else %>
+
+                  <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2">
+                    グループ公開
+                  </span>
+
+                <% end %>
+
+              </div>
+
+              <!-- 投稿情報 -->
+
+              <div class="card-body bg-warning-subtle">
+
+                <!-- ユーザー名 -->
+
+                <p class="small fw-bold mb-2">
+                  <%= post.user.name %>
+                </p>
+
+                <!-- タイトル -->
+
+                <h5 class="fw-bold mb-3">
+                  <%= post.title %>
+                </h5>
+
+                <!-- 投稿日 -->
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                  <p class="small text-secondary mb-0">
+                    <%= post.created_at.strftime("%Y/%m/%d") %>
+                  </p>
+
+                </div>
+
+              </div>
+
+            <% end %>
+
+            <!-- いいね -->
+
+            <div class="px-3 pb-3 bg-warning-subtle">
+
+              <%= render "public/likes/like_button", post: post %>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  <% else %>
+
+    <!-- いいねがない場合 -->
+
+    <div class="card border-0 shadow-sm rounded-4">
+
+      <div class="card-body text-center py-5">
+
+        <p class="text-secondary mb-3">
+          まだいいねしたレシピはありません。
+        </p>
+
+        <%= link_to "レシピを探す",
+                    public_posts_path,
+                    class: "btn btn-success rounded-pill px-4" %>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+<%= render "layouts/footer" %>

@@ -1,6 +1,13 @@
 class Public::LikesController < ApplicationController
   before_action :require_authentication
 
+  def index
+    @posts = Current.user.likes
+                      .includes(:post)
+                      .map(&:post)
+                      .sort_by { |post| -post.created_at.to_i }
+  end
+
   def create
     @post = Post.find(params[:post_id])
 
