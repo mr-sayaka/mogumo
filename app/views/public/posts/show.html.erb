@@ -157,7 +157,7 @@
   <% if Current.user == @post.user %>
     <%= link_to "編集する",
         edit_public_post_path(@post),
-        class: "btn btn-primary rounded-pill px-4 me-2" %>
+        class: "btn btn-success rounded-pill px-4 me-2" %>
     
     <%= button_to "削除する",
         public_post_path(@post),

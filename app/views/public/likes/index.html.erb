@@ -54,29 +54,29 @@
 
               </div>
 
-              <!-- 公開状態 -->
-
-              <div class="px-3 pt-3">
-
-                <% if post.visibility == "public" %>
-
-                  <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
-                    全体公開
-                  </span>
-
-                <% else %>
-
-                  <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2">
-                    グループ公開
-                  </span>
-
-                <% end %>
-
-              </div>
-
               <!-- 投稿情報 -->
 
               <div class="card-body bg-warning-subtle">
+
+                <!-- 公開状態 -->
+
+                <div class="mb-3">
+
+                  <% if post.visibility == "public" %>
+
+                    <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+                      全体公開
+                    </span>
+
+                  <% else %>
+
+                    <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2">
+                      グループ公開
+                    </span>
+
+                  <% end %>
+
+                </div>
 
                 <!-- ユーザー名 -->
 
