@@ -1,11 +1,8 @@
 <%= render "layouts/header" %>
 
 <div class="container py-5">
-
   <div class="row justify-content-center">
-
     <div class="col-lg-8">
-
       <h2 class="text-center fw-bold mb-5">
         マイページ
       </h2>
@@ -13,7 +10,6 @@
       <!-- ユーザー情報 -->
       <div class="card shadow-sm rounded-4 mb-5">
         <div class="card-body p-4">
-
           <h4 class="fw-bold mb-4">
             ユーザー情報
           </h4>
@@ -24,7 +20,6 @@
               <%= @user.name %>
             </p>
           </div>
-
 
           <div class="mb-4">
             <strong>メールアドレス</strong>
@@ -38,157 +33,116 @@
                         edit_public_user_path(@user),
                         class: "btn btn-outline-success rounded-pill px-5" %>
           </div>
-
         </div>
       </div>
 
       <!-- 自分の投稿 -->
       <div class="card shadow-sm rounded-4 mb-5">
         <div class="card-body p-4">
-                              
           <h4 class="fw-bold mb-4">
             自分の投稿
           </h4>
-                              
+
           <% if @posts.any? %>
-                              
             <div class="row g-4">
-                              
               <% @posts.each do |post| %>
-              
                 <div class="col-md-6">
-              
                   <div class="card h-100 shadow-sm border-0">
-              
                     <!-- 投稿画像 -->
                     <% if post.image.attached? %>
                       <%= image_tag post.image,
                                     class: "card-img-top",
                                     style: "height: 180px; object-fit: cover;" %>
                     <% end %>
-                                    
+
                     <div class="card-body">
-                                    
                       <!-- タイトル -->
                       <h5 class="fw-bold mb-3">
                         <%= post.title %>
                       </h5>
-                                    
                       <!-- 対象年齢 -->
                       <% if post.target_age.present? %>
                         <p class="small text-muted mb-2">
                           対象年齢：<%= post.target_age %>
                         </p>
                       <% end %>
-                                    
                       <!-- 投稿日 -->
                       <p class="small text-muted mb-3">
                         <%= post.created_at.strftime("%Y年%m月%d日") %>
                       </p>
-                                    
                       <!-- 詳細を見る -->
                       <%= link_to "詳細を見る",
                                   public_post_path(post),
                                   class: "btn btn-outline-success rounded-pill px-4" %>
-                                  
                     </div>
-                                  
                   </div>
-                                  
                 </div>
-                                  
               <% end %>
-                                  
             </div>
-                                  
+
           <% else %>
-                                  
+
             <p class="text-center text-muted mb-0">
               まだ投稿がありません。
             </p>
-                                  
           <% end %>
-                                  
         </div>
       </div>
 
-                                        
       <!-- 参加中のコミュニティー -->
-                                        
       <div class="card shadow-sm mb-4">
-                                        
         <div class="card-body">
-                                        
           <div class="d-flex justify-content-between align-items-center mb-3">
-                                        
             <h2 class="h5 mb-0">
               参加中のコミュニティー
             </h2>
-                                        
+
             <%= link_to "コミュニティーを探す",
                         public_groups_path,
-                        class: "btn btn-sm btn-outline-primary" %>
-                        
+                        class: "btn btn-sm btn-outline-success rounded-pill" %>
           </div>
-                        
+
           <% if @joined_groups.any? %>
-                        
             <div class="row g-3">
-                        
               <% @joined_groups.each do |group| %>
-              
                 <div class="col-md-6 col-lg-4">
-              
                   <div class="card h-100">
-              
                     <div class="card-body">
-              
                       <h3 class="h6 mb-2">
                         <%= group.name %>
                       </h3>
-              
+
                       <% if group.description.present? %>
                         <p class="small text-muted mb-3">
                           <%= truncate(group.description, length: 80) %>
                         </p>
                       <% end %>
-              
+
                       <%= link_to "コミュニティーを見る",
                                   public_group_path(group),
-                                  class: "btn btn-sm btn-outline-primary w-100" %>
-                                  
+                                  class: "btn btn-sm btn-outline-success rounded-pill w-100" %>
                     </div>
-                                  
                   </div>
-                                  
                 </div>
-                                  
               <% end %>
-                                  
             </div>
-                                  
+
           <% else %>
 
-      <p class="text-muted mb-3">
-        まだコミュニティーに参加していません。
-      </p>
+            <p class="text-muted mb-3">
+              まだコミュニティーに参加していません。
+            </p>
 
-      <%= link_to "コミュニティーを探す",
-                  public_groups_path,
-                  class: "btn btn-primary" %>
+            <%= link_to "コミュニティーを探す",
+                        public_groups_path,
+                        class: "btn btn-primary" %>
 
-    <% end %>
-
-  </div>
-
-</div>
-
-
-
+          <% end %>
+        </div>
+      </div>
 
       <!-- 退会 -->
       <div class="text-center mt-5">
-
         <%= button_to "退会する",
                       public_user_path(@user),
                       method: :delete,
@@ -196,13 +150,9 @@
                         turbo_confirm: "本当に退会しますか？\n退会すると登録情報や投稿が削除されます。"
                       },
                       class: "btn btn-outline-danger rounded-pill px-5" %>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
 
 <%= render "layouts/footer" %>
