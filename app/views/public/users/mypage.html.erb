@@ -31,7 +31,7 @@
           <div class="text-center">
             <%= link_to "ユーザー情報を編集",
                         edit_public_user_path(@user),
-                        class: "btn btn-outline-success rounded-pill px-5" %>
+                        class: "btn btn-success rounded-pill px-5" %>
           </div>
         </div>
       </div>
@@ -44,37 +44,61 @@
           </h4>
 
           <% if @posts.any? %>
-            <div class="row g-4">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
               <% @posts.each do |post| %>
-                <div class="col-md-6">
-                  <div class="card h-100 shadow-sm border-0">
-                    <!-- 投稿画像 -->
-                    <% if post.image.attached? %>
-                      <%= image_tag post.image,
-                                    class: "card-img-top",
-                                    style: "height: 180px; object-fit: cover;" %>
-                    <% end %>
+                <div class="col">
+                  <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
 
-                    <div class="card-body">
-                      <!-- タイトル -->
-                      <h5 class="fw-bold mb-3">
-                        <%= post.title %>
-                      </h5>
-                      <!-- 対象年齢 -->
-                      <% if post.target_age.present? %>
-                        <p class="small text-muted mb-2">
-                          対象年齢：<%= post.target_age %>
-                        </p>
-                      <% end %>
-                      <!-- 投稿日 -->
-                      <p class="small text-muted mb-3">
-                        <%= post.created_at.strftime("%Y年%m月%d日") %>
-                      </p>
-                      <!-- 詳細を見る -->
-                      <%= link_to "詳細を見る",
-                                  public_post_path(post),
-                                  class: "btn btn-outline-success rounded-pill px-4" %>
-                    </div>
+                    <!-- 投稿詳細へのリンク -->
+                    <%= link_to public_post_path(post),
+                                class: "text-decoration-none text-dark" do %>
+
+                      <!-- 画像 -->
+                      <div class="ratio ratio-4x3 bg-secondary-subtle">
+                        <% if post.image.attached? %>
+                          <%= image_tag post.image,
+                                        class: "w-100 h-100 object-fit-cover" %>
+                        <% end %>
+                      </div>
+
+                      <!-- 投稿情報 -->
+                      <div class="card-body bg-warning-subtle">
+
+                        <!-- 公開状態 -->
+                        <div class="mb-3">
+                          <% if post.visibility == "public" %>
+                            <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+                              全体公開
+                            </span>
+
+                          <% else %>
+
+                            <span class="badge bg-danger-subtle text-danger-emphasis rounded-pill px-3 py-2 text-wrap">
+                              <%= post.group&.name %>限定
+                            </span>
+                          <% end %>
+                        </div>
+
+                        <!-- タイトル -->
+                        <h5 class="fw-bold mb-3">
+                          <%= post.title %>
+                        </h5>
+
+                        <!-- 対象年齢 -->
+                        <% if post.target_age.present? %>
+                          <p class="small text-muted mb-2">
+                            対象年齢：<%= post.target_age %>
+                          </p>
+                        <% end %>
+
+                        <!-- 投稿日 -->
+                        <div class="d-flex justify-content-between align-items-center">
+                          <p class="small text-secondary mb-0">
+                            <%= post.created_at.strftime("%Y/%m/%d") %>
+                          </p>
+                        </div>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               <% end %>
@@ -120,7 +144,7 @@
 
                       <%= link_to "コミュニティーを見る",
                                   public_group_path(group),
-                                  class: "btn btn-sm btn-outline-success rounded-pill w-100" %>
+                                  class: "btn btn-sm btn-success rounded-pill w-100" %>
                     </div>
                   </div>
                 </div>
