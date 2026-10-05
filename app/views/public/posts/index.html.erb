@@ -1,136 +1,104 @@
 <%= render "layouts/header" %>
 
 <div class="container py-5">
-
   <!-- タイトル・投稿ボタン -->
-
   <div class="d-flex justify-content-center align-items-center position-relative mb-5">
+    <h2 class="fw-bold mb-0">
+      <span class="small text-secondary">・・・・</span>
+      新着レシピ
+      <span class="small text-secondary">・・・・</span>
+    </h2>
 
-<h2 class="fw-bold mb-0">
-  <span class="small text-secondary">・・・・</span>
-  新着レシピ
-  <span class="small text-secondary">・・・・</span>
-</h2>
-
-<%= link_to new_public_post_path,
-            class: "btn btn-success btn-sm rounded-pill position-absolute end-0 px-4" do %>
-  レシピを投稿する
-  <i class="bi bi-chevron-right ms-2"></i>
-<% end %>
-
-
+    <%= link_to new_public_post_path,
+                class: "btn btn-success btn-sm rounded-pill position-absolute end-0 px-4" do %>
+      レシピを投稿する
+      <i class="bi bi-chevron-right ms-2"></i>
+    <% end %>
   </div>
 
   <!-- 説明 -->
-
   <div class="text-center mb-5">
-
-
-<p class="text-secondary mb-0">
-  みんなの離乳食レシピを見てみましょう。
-</p>
-
-
+    <p class="text-secondary mb-0">
+      みんなの離乳食レシピを見てみましょう。
+    </p>
   </div>
 
   <!-- 投稿一覧 -->
+  <% if @posts.any? %>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+      <% @posts.each do |post| %>
+        <div class="col">
+          <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
 
-<% if @posts.any? %>
+            <!-- 投稿詳細へのリンク -->
+            <%= link_to public_post_path(post),
+                        class: "text-decoration-none text-dark" do %>
 
+              <!-- 画像 -->
+              <div class="ratio ratio-4x3 bg-secondary-subtle">
+                <% if post.image.attached? %>
+                  <%= image_tag post.image,
+                                class: "w-100 h-100 object-fit-cover" %>
+                <% end %>
+              </div>
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+              <!-- 投稿情報 -->
+              <div class="card-body bg-warning-subtle">
+                <!-- 公開状態 -->
+                <div class="mb-3">
+                  <% if post.visibility == "public" %>
+                    <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+                      全体公開
+                    </span>
+                  <% end %>
+                </div>
 
-  <% @posts.each do |post| %>
+                <!-- ユーザー名 -->
+                <p class="small fw-bold mb-2">
+                  <%= post.user.name %>
+                </p>
 
-  <div class="col">
+                <!-- タイトル -->
+                <h5 class="fw-bold mb-3">
+                  <%= post.title %>
+                </h5>
 
-    <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
+                <!-- 対象年齢 -->
+                <% if post.target_age.present? %>
+                  <p class="small text-muted mb-2">
+                    対象年齢：<%= post.target_age %>
+                  </p>
+                <% end %>
 
-      <!-- 投稿詳細へのリンク -->
-      <%= link_to public_post_path(post),
-                  class: "text-decoration-none text-dark" do %>
+                <!-- 投稿日 -->
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="small text-secondary mb-0">
+                    <%= post.created_at.strftime("%Y/%m/%d") %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
 
-        <!-- 画像 -->
-        <div class="ratio ratio-4x3 bg-secondary-subtle">
-
-          <% if post.image.attached? %>
-
-            <%= image_tag post.image,
-                          class: "w-100 h-100 object-fit-cover" %>
-
-          <% end %>
-
-        </div>
-
-        <!-- 投稿情報 -->
-        <div class="card-body bg-warning-subtle">
-                                  
-          <!-- 公開状態 -->
-          <div class="mb-3">
-                                  
-            <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
-              全体公開
-            </span>
-                                  
-          </div>
-                                  
-          <!-- ユーザー名 -->
-          <p class="small fw-bold mb-2">
-            <%= post.user.name %>
-          </p>
-
-          <!-- タイトル -->
-          <h5 class="fw-bold mb-3">
-            <%= post.title %>
-          </h5>
-
-          <!-- 投稿日 -->
-          <div class="d-flex justify-content-between align-items-center">
-
-            <p class="small text-secondary mb-0">
-              <%= post.created_at.strftime("%Y/%m/%d") %>
-            </p>
-
+            <!-- いいね -->
+            <div class="px-3 pb-3 bg-warning-subtle">
+              <%= render "public/likes/like_button", post: post %>
             </div>
-
           </div>
-
+        </div>
       <% end %>
-
-      <!-- いいね -->
-      <div class="px-3 pb-3 bg-warning-subtle">
-                                
-        <%= render "public/likes/like_button", post: post %>
-                                
-      </div>
-
     </div>
 
-  </div>
+  <% else %>
 
-<% end %>
-
-</div>
-
-
-<% else %>
-
-<!-- 投稿がない場合 -->
-<div class="card border-0 shadow-sm rounded-4">
-
-  <div class="card-body text-center py-5">
-
-    <p class="text-secondary mb-0">
-      まだ公開されているレシピはありません。
-    </p>
-
-  </div>
-
-</div>
-
-
-<% end %>
-
+    <!-- 投稿がない場合 -->
+    <div class="card border-0 shadow-sm rounded-4">
+      <div class="card-body text-center py-5">
+        <p class="text-secondary mb-0">
+          まだ公開されているレシピはありません。
+        </p>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <%= render "layouts/footer" %>
