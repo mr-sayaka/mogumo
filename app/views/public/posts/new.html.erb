@@ -124,19 +124,19 @@
             </div>
 
             <!-- 投稿ボタン -->
-            <div class="d-grid">
-              <%= f.submit "投稿する", class: "btn btn-primary" %>
+            <div class="text-center">
+              <%= f.submit "投稿する",
+                  class: "btn btn-success px-5 rounded-pill" %>
             </div>
 
           <% end %>
-
         </div>
       </div>
 
       <div class="text-center mt-3">
-        <%= link_to "戻る", root_path, class: "text-decoration-none" %>
+        <%= link_to "投稿詳細に戻る", public_posts_path, 
+            class: "btn btn-outline-secondary btn-sm px-3 rounded-pill" %>
       </div>
-
     </div>
   </div>
 </div>
