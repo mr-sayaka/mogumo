@@ -1,5 +1,4 @@
 class Admin::GroupsController < Admin::BaseController
-
   before_action :set_group, only: [:show, :edit, :update, :destroy]
 
   def index

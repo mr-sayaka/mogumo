@@ -3,15 +3,10 @@
   <!-- =========================
        検索エリア
   ========================== -->
-
   <% if authenticated? %>
-
     <div style="background-color: #BAC37E;">
-
       <div class="container">
-
         <div class="d-flex justify-content-center align-items-center py-2">
-
           <%= form_with url: public_search_path,
                         method: :get,
                         local: true,
@@ -35,68 +30,46 @@
 
             <!-- キーワード検索 -->
             <div class="input-group" style="max-width: 360px;">
-
               <span class="input-group-text bg-white border-0 rounded-start-pill">
-
                 <i class="fa-solid fa-magnifying-glass"
                    style="color: #BAC37E;"></i>
-
               </span>
-
               <%= f.text_field :keyword,
                                class: "form-control border-0 rounded-end-pill",
                                placeholder: "食材・料理名など" %>
-
             </div>
 
             <!-- 検索ボタン -->
             <%= f.submit "検索",
                          class: "btn btn-light rounded-pill px-4" %>
-
           <% end %>
-
         </div>
-
       </div>
-
     </div>
-
   <% end %>
-
 
   <!-- =========================
        ロゴ + ユーザーメニュー
   ========================== -->
-
   <div class="container">
-
     <div class="position-relative d-flex justify-content-end align-items-center py-3">
 
       <!-- ロゴ -->
-
       <div class="position-absolute top-50 start-50 translate-middle">
-
         <%= link_to root_path do %>
-
           <%= image_tag "mogumo_logo.png",
                         alt: "mogumo",
                         width: "250" %>
-
         <% end %>
-
       </div>
 
-
       <!-- 右側メニュー -->
-
       <div class="d-flex gap-2">
-
         <% if authenticated? %>
 
           <!-- =========================
                マイページ
           ========================== -->
-
           <%= link_to public_mypage_path,
                       class: "text-decoration-none text-center rounded-circle
                              d-flex flex-column justify-content-center align-items-center
@@ -108,18 +81,13 @@
                              border-color: #BAC37E !important;",
                       onmouseover: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';",
                       onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
-
             <i class="fa-regular fa-user fs-6 mb-1"></i>
-
             <small class="small">マイページ</small>
-
           <% end %>
-
 
           <!-- =========================
                ログアウト
           ========================== -->
-
           <%= link_to public_session_path,
                       data: { turbo_method: :delete },
                       class: "text-decoration-none text-center rounded-circle
@@ -134,18 +102,14 @@
                       onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
 
             <i class="fa-solid fa-arrow-right-from-bracket fs-6 mb-1"></i>
-
             <small class="small">ログアウト</small>
-
           <% end %>
-
 
         <% else %>
 
           <!-- =========================
                会員登録
           ========================== -->
-
           <%= link_to new_public_user_path,
                       class: "text-decoration-none text-center rounded-circle
                              d-flex flex-column justify-content-center align-items-center
@@ -159,16 +123,12 @@
                       onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
 
             <i class="fa-regular fa-pen-to-square fs-6 mb-1"></i>
-
             <small class="small">会員登録</small>
-
           <% end %>
-
 
           <!-- =========================
                ログイン
           ========================== -->
-
           <%= link_to new_public_session_path,
                       class: "text-decoration-none text-center rounded-circle
                              d-flex flex-column justify-content-center align-items-center
@@ -180,75 +140,47 @@
                              border-color: #BAC37E !important;",
                       onmouseover: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';",
                       onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
-
             <i class="fa-regular fa-user fs-6 mb-1"></i>
-
             <small class="small">ログイン</small>
-
           <% end %>
-
         <% end %>
-
       </div>
-
     </div>
-
 
     <!-- =========================
          ナビゲーション
     ========================== -->
-
     <nav>
-
       <ul class="nav justify-content-center align-items-center mb-0">
-
         <!-- About -->
-
         <li class="nav-item border-start">
-
           <%= link_to "About",
                       homes_about_path,
                       class: "nav-link text-dark fw-semibold px-5 py-3" %>
-
         </li>
 
-
         <!-- 投稿一覧 -->
-
         <li class="nav-item border-start">
-
           <%= link_to "投稿一覧",
                       public_posts_path,
                       class: "nav-link text-dark fw-semibold px-5 py-3" %>
-
         </li>
 
-
         <!-- コミュニティ一覧 -->
-
         <li class="nav-item border-start">
-
           <%= link_to "コミュニティ一覧",
                       public_groups_path,
                       class: "nav-link text-dark fw-semibold px-5 py-3" %>
-
         </li>
 
-
         <!-- いいね一覧 -->
-
         <li class="nav-item border-start border-end">
-
           <%= link_to "いいね一覧",
                       public_likes_path,
                       class: "nav-link text-dark fw-semibold px-5 py-3" %>
-
         </li>
-
       </ul>
-
     </nav>
-
   </div>
 
 </header>

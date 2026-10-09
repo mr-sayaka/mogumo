@@ -7,7 +7,6 @@
       <%= @group.name %>
     </h1>
   </div>
-
   <div class="row justify-content-center">
     <div class="col-12 col-lg-9">
       <!-- コミュニティーについて -->
@@ -22,14 +21,11 @@
             <h3 class="h6 fw-bold mb-2">
               説明
             </h3>
-
             <% if @group.description.present? %>
               <p class="mb-0">
                 <%= simple_format(@group.description) %>
               </p>
-
             <% else %>
-
               <p class="text-secondary mb-0">
                 説明はありません。
               </p>
@@ -41,14 +37,11 @@
             <h3 class="h6 fw-bold mb-2">
               テーマ
             </h3>
-
             <% if @group.theme.present? %>
               <p class="mb-0">
                 <%= simple_format(@group.theme) %>
               </p>
-
             <% else %>
-
               <p class="text-secondary mb-0">
                 テーマは設定されていません。
               </p>
@@ -63,14 +56,11 @@
           <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
             コミュニティールール
           </h2>
-
           <% if @group.rules.present? %>
             <div>
               <%= simple_format(@group.rules) %>
             </div>
-
           <% else %>
-
             <p class="text-secondary mb-0">
               ルールは設定されていません。
             </p>
@@ -84,7 +74,6 @@
           <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
             参加者
           </h2>
-
           <p class="fs-4 fw-bold mb-0">
             <%= @group.members.count %>人
           </p>
@@ -101,9 +90,7 @@
                         data: {
                           turbo_confirm: "このコミュニティーから退会しますか？"
                         } %>
-
         <% else %>
-
           <%= button_to "このコミュニティーに参加する",
                         public_group_membership_path(@group),
                         method: :post,
@@ -119,7 +106,6 @@
             コミュニティー限定レシピ
             <span class="small text-secondary">・・・・</span>
           </h2>
-
           <p class="text-secondary small mt-3">
             このコミュニティーで共有されているレシピです。
           </p>
@@ -128,7 +114,6 @@
         <!-- 参加者だけが限定レシピを見る -->
         <% if @membership %>
           <% if @posts.any? %>
-
             <!-- 3列表示 -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
               <% @posts.each do |post| %>
@@ -147,7 +132,6 @@
 
                       <!-- 投稿情報 -->
                       <div class="card-body bg-warning-subtle">
-
                         <!-- 限定バッジ -->
                         <div class="mb-3">
                           <span class="badge bg-danger-subtle text-danger-emphasis rounded-pill px-3 py-2">
