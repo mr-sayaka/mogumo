@@ -37,7 +37,6 @@ class Public::SearchesController < ApplicationController
           keyword: keyword
         )
       end
-
     end
   end
 end

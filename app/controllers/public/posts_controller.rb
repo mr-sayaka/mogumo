@@ -32,7 +32,7 @@ class Public::PostsController < ApplicationController
         group_ids: joined_group_ids.presence || [-1]
       )
       .order(created_at: :desc)
-end
+  end
 
   def show
     @post = Post.includes(:user, :group, comments: :user).find(params[:id])

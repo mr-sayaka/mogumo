@@ -5,7 +5,6 @@ class User < ApplicationRecord
   has_many :sessions, as: :account, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :groups, dependent: :destroy
-
   has_many :group_memberships, dependent: :destroy
   has_many :joined_groups,
            through: :group_memberships,
@@ -24,15 +23,12 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(email) { email.strip.downcase }
 
   validates :name, presence: true
-
   validates :email_address,
             presence: true,
             uniqueness: { case_sensitive: false },
             format: { with: URI::MailTo::EMAIL_REGEXP }
-
   validates :password,
             presence: true,
             length: { minimum: 6 },
             allow_nil: true
-
 end

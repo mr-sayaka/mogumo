@@ -17,5 +17,4 @@ class Public::GroupsController < ApplicationController
                  .where(visibility: "group")
                  .order(created_at: :desc)
   end
-
 end
