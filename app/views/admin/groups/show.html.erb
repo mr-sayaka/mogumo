@@ -6,17 +6,9 @@
 
     <div class="d-flex gap-2">
 
-      <%= link_to "編集",
-                  edit_admin_group_path(@group),
-                  class: "btn btn-outline-primary" %>
-
-      <%= button_to "削除",
-                    admin_group_path(@group),
-                    method: :delete,
-                    class: "btn btn-outline-danger",
-                    data: {
-                      turbo_confirm: "このグループを削除しますか？"
-                    } %>
+      <%= link_to "グループ一覧へ",
+                  admin_groups_path,
+                  class: "btn btn-outline-secondary" %>
 
     </div>
 
@@ -91,12 +83,19 @@
 
       </div>
 
-      <%= link_to "グループ一覧へ",
-                  admin_groups_path,
-                  class: "btn btn-outline-secondary" %>
+      <div class="mt-4 d-flex gap-2">
+        <%= link_to "編集",
+                    edit_admin_group_path(@group),
+                    class: "btn btn-outline-primary" %>
 
+        <%= button_to "削除",
+                      admin_group_path(@group),
+                      method: :delete,
+                      class: "btn btn-outline-danger",
+                      data: {
+                        turbo_confirm: "このグループを削除しますか？"
+                      } %>
+      </div>
     </div>
-
   </div>
-
 </div>

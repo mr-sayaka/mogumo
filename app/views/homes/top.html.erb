@@ -138,30 +138,40 @@
                 <% end %>
               </div>
 
-              <!-- 公開範囲 -->
-              <div class="px-3 pt-3">
-                <% if post.visibility == "group" %>
-                  <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-2">
-                    <%= post.group.name %>限定
-                  </span>
-                <% else %>
-                  <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-2">
-                    全体公開
-                  </span>
-                <% end %>
-              </div>
-
               <!-- 投稿情報 -->
               <div class="card-body bg-warning-subtle">
+                <!-- 公開状態 -->
+                <div class="mb-3">
+                  <% if post.visibility == "public" %>
+                    <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+                      全体公開
+                    </span>
+                  <% end %>
+                </div>
+
+                <!-- ユーザー名 -->
                 <p class="small fw-bold mb-2">
                   <%= post.user.name %>
                 </p>
-                <h5 class="fw-bold mb-2">
+
+                <!-- タイトル -->
+                <h5 class="fw-bold mb-3">
                   <%= post.title %>
                 </h5>
-                <p class="small text-secondary mb-0">
-                  <%= post.created_at.strftime("%Y/%m/%d") %>
-                </p>
+
+                <!-- 対象年齢 -->
+                <% if post.target_age.present? %>
+                  <p class="small text-muted mb-2">
+                    対象年齢：<%= post.target_age %>
+                  </p>
+                <% end %>
+
+                <!-- 投稿日 -->
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="small text-secondary mb-0">
+                    <%= post.created_at.strftime("%Y/%m/%d") %>
+                  </p>
+                </div>
               </div>
             </div>
           <% end %>
