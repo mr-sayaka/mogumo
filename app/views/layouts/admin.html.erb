@@ -12,9 +12,6 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
-    </script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -44,25 +41,26 @@
             <button
               class="btn btn-dark dropdown-toggle"
               type="button"
-              data-bs-toggle="dropdown"
+              id="adminDropdown"
               aria-expanded="false">
               <i class="fa-solid fa-circle-user me-2"></i>
               <%= Current.admin.name %>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end">
+              
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              id="adminDropdownMenu">
               <li>
                 <%= link_to "管理者情報編集",
                             edit_admin_admin_path(Current.admin),
                             class: "dropdown-item" %>
               </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+              <li><hr class="dropdown-divider"></li>
               <li>
                 <%= button_to "ログアウト",
-                            admin_session_path,
-                            method: :delete,
-                            class: "dropdown-item" %>
+                              admin_session_path,
+                              method: :delete,
+                              class: "dropdown-item" %>
               </li>
             </ul>
           </div>
@@ -113,6 +111,37 @@
         </main>
       </div>
     </div>
-  </body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      (() => {
+        function initializeAdminDropdown() {
+          const button = document.getElementById("adminDropdown");
+          const menu = document.getElementById("adminDropdownMenu");
+
+          if (!button || !menu || button.dataset.dropdownInitialized) return;
+
+          button.dataset.dropdownInitialized = "true";
+
+          button.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const isOpen = menu.classList.contains("show");
+            menu.classList.toggle("show", !isOpen);
+            button.setAttribute("aria-expanded", String(!isOpen));
+          });
+
+          document.addEventListener("click", (event) => {
+            if (!button.parentElement.contains(event.target)) {
+              menu.classList.remove("show");
+              button.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+      
+        document.addEventListener("turbo:load", initializeAdminDropdown);
+        document.addEventListener("DOMContentLoaded", initializeAdminDropdown);
+      })();
+    </script>
+  </body>
 </html>
