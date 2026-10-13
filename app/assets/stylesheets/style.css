@@ -5,7 +5,7 @@ h3 {
 .btn-success {
   border-radius: 20px;
 }
-/* ユーザーのログイン画面 */
+
 .login-btn,
 .login-btn:focus,
 .login-btn:focus-visible{
@@ -29,15 +29,25 @@ h3 {
     box-shadow: none !important;
 }
 
-.register-btn{
-    background:#b9bf77;
-    border-color:#b9bf77;
+.register-btn,
+.register-btn:focus,
+.register-btn:focus-visible{
+    background-color: #b9bf77 !important;
+    border-color: #b9bf77 !important;
+    color: #fff !important;
+    box-shadow: none !important;
 }
 
-.register-btn:hover,
-.register-btn:focus,
-.register-btn:active{
-    background:#aab36b !important;
-    border-color:#aab36b !important;
+.register-btn:hover{
+    background-color: #aab36b !important;
+    border-color: #aab36b !important;
     color: #fff !important;
+    box-shadow: none !important;
+}
+
+.register-btn:active{
+    background-color: #b9bf77 !important;
+    border-color: #b9bf77 !important;
+    color: #fff !important;
+    box-shadow: none !important;
 }
