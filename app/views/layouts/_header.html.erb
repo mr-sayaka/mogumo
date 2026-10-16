@@ -1,185 +1,260 @@
 <header>
-  <!-- =========================
-       検索エリア
-  ========================== -->
+  <!-- PC用検索エリア -->
   <% if authenticated? %>
-    <div style="background-color: #BAC37E;">
-      <div class="container">
-        <div class="d-flex justify-content-center align-items-center py-2">
-          <%= form_with url: public_search_path,
-                        method: :get,
-                        local: true,
-                        class: "d-flex align-items-center justify-content-center gap-2 w-100" do |f| %>
+    <div class="d-none d-lg-block" style="background-color: #BAC37E;">
+      <div class="container py-2">
+        <%= form_with url: public_search_path,
+                      method: :get,
+                      local: true,
+                      class: "d-flex justify-content-center align-items-center gap-2" do |f| %>
 
-            <!-- 投稿検索 -->
-            <%= hidden_field_tag :search_type, "post" %>
+          <%= hidden_field_tag :search_type, "post" %>
+          <%= f.select :target_age,
+                       [
+                         ["対象年齢", ""],
+                         ["5〜6ヶ月", "5〜6ヶ月"],
+                         ["7〜8ヶ月", "7〜8ヶ月"],
+                         ["9〜11ヶ月", "9〜11ヶ月"],
+                         ["1歳〜", "1歳〜"]
+                       ],
+                       {},
+                       class: "form-select rounded-pill",
+                       style: "max-width: 180px;" %>
 
-            <!-- 対象年齢 -->
-            <%= f.select :target_age,
-                         [
-                           ["対象年齢", ""],
-                           ["5〜6ヶ月", "5〜6ヶ月"],
-                           ["7〜8ヶ月", "7〜8ヶ月"],
-                           ["9〜11ヶ月", "9〜11ヶ月"],
-                           ["1歳〜", "1歳〜"]
-                         ],
-                         {},
-                         class: "form-select rounded-pill",
-                         style: "max-width: 180px;" %>
+          <div class="input-group" style="max-width: 360px;">
+            <span class="input-group-text bg-white border-0 rounded-start-pill">
+              <i class="fa-solid fa-magnifying-glass"
+                 style="color: #BAC37E;"></i>
+            </span>
 
-            <!-- キーワード検索 -->
-            <div class="input-group" style="max-width: 360px;">
-              <span class="input-group-text bg-white border-0 rounded-start-pill">
-                <i class="fa-solid fa-magnifying-glass"
-                   style="color: #BAC37E;"></i>
-              </span>
-              <%= f.text_field :keyword,
-                               class: "form-control border-0 rounded-end-pill",
-                               placeholder: "食材・料理名など" %>
-            </div>
-
-            <!-- 検索ボタン -->
-            <%= f.submit "検索",
-                         class: "btn btn-light rounded-pill px-4" %>
-          <% end %>
-        </div>
+            <%= f.text_field :keyword,
+                             class: "form-control border-0 rounded-end-pill",
+                             placeholder: "食材・料理名など" %>
+          </div>
+          <%= f.submit "検索",
+                       class: "btn btn-light rounded-pill px-4" %>
+        <% end %>
       </div>
     </div>
   <% end %>
 
-  <!-- =========================
-       ロゴ + ユーザーメニュー
-  ========================== -->
-  <div class="container">
-    <div class="position-relative d-flex justify-content-end align-items-center py-3">
+  <div id="mogumoHeaderArea" style="background-color: #FFFFFF;">
+    <div class="container">
+      <!-- ロゴ・PC用ユーザーメニュー・スマホ用ボタン -->
+      <div class="d-flex align-items-center justify-content-between flex-row-reverse flex-lg-row py-3 position-relative">
 
-      <!-- ロゴ -->
-      <div class="position-absolute top-50 start-50 translate-middle">
-        <%= link_to root_path do %>
+        <!-- スマホ用ハンバーガーボタン -->
+        <button class="navbar-toggler d-lg-none border-0 p-2 mogumo-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mogumoHeaderMenu"
+                aria-controls="mogumoHeaderMenu"
+                aria-expanded="false"
+                aria-label="メニューを開閉">
+
+          <span class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+
+        <!-- PC用ロゴ -->
+        <%= link_to root_path,
+                    class: "navbar-brand d-none d-lg-block position-absolute top-50 start-50 translate-middle" do %>
           <%= image_tag "mogumo_logo.png",
                         alt: "mogumo",
-                        width: "250" %>
+                        class: "mogumo-logo" %>
         <% end %>
+
+        <!-- スマホ用ロゴ -->
+        <%= link_to root_path,
+                    class: "navbar-brand d-lg-none mx-0" do %>
+          <%= image_tag "mogumo_logo.png",
+                        alt: "mogumo",
+                        class: "img-fluid",
+                        style: "width: 200px; max-width: 55vw;" %>
+        <% end %>
+
+        <!-- PC用ユーザーメニュー -->
+        <div class="d-none d-lg-flex gap-2 ms-auto">
+          <% if authenticated? %>
+            <%= link_to public_mypage_path,
+                        class: "text-decoration-none text-center rounded-circle d-flex flex-column justify-content-center align-items-center border",
+                        style: "width: 76px; height: 76px; background-color: #BAC37E; color: #FFFFFF; border-color: #BAC37E !important;",
+                        onmouseover: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';",
+                        onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
+              <i class="fa-regular fa-user fs-6 mb-1"></i>
+              <small>マイページ</small>
+            <% end %>
+
+            <%= link_to public_session_path,
+                        data: { turbo_method: :delete },
+                        class: "text-decoration-none text-center rounded-circle d-flex flex-column justify-content-center align-items-center border",
+                        style: "width: 76px; height: 76px; background-color: #FFFFFF; color: #BAC37E; border-color: #BAC37E !important;",
+                        onmouseover: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';",
+                        onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
+              <i class="fa-solid fa-arrow-right-from-bracket fs-6 mb-1"></i>
+              <small>ログアウト</small>
+            <% end %>
+
+          <% else %>
+
+            <%= link_to new_public_user_path,
+                        class: "text-decoration-none text-center rounded-circle d-flex flex-column justify-content-center align-items-center border",
+                        style: "width: 76px; height: 76px; background-color: #BAC37E; color: #FFFFFF; border-color: #BAC37E !important;",
+                        onmouseover: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';",
+                        onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
+              <i class="fa-regular fa-pen-to-square fs-6 mb-1"></i>
+              <small>会員登録</small>
+            <% end %>
+
+            <%= link_to new_public_session_path,
+                        class: "text-decoration-none text-center rounded-circle d-flex flex-column justify-content-center align-items-center border",
+                        style: "width: 76px; height: 76px; background-color: #FFFFFF; color: #BAC37E; border-color: #BAC37E !important;",
+                        onmouseover: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';",
+                        onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
+              <i class="fa-regular fa-user fs-6 mb-1"></i>
+              <small>ログイン</small>
+            <% end %>
+
+          <% end %>
+        </div>
+
+        <!-- スマホ用 -->
+        <div class="d-lg-none" style="width: 44px;"></div>
       </div>
 
-      <!-- 右側メニュー -->
-      <div class="d-flex gap-2">
-        <% if authenticated? %>
+      <!-- ナビゲーション：PCでは常時表示、スマホではボタンで開閉 -->
+      <nav class="navbar navbar-expand-lg p-0">
+        <div class="collapse navbar-collapse" id="mogumoHeaderMenu">
 
-          <!-- =========================
-               マイページ
-          ========================== -->
-          <%= link_to public_mypage_path,
-                      class: "text-decoration-none text-center rounded-circle
-                             d-flex flex-column justify-content-center align-items-center
-                             border",
-                      style: "width: 76px;
-                             height: 76px;
-                             background-color: #BAC37E;
-                             color: #FFFFFF;
-                             border-color: #BAC37E !important;",
-                      onmouseover: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';",
-                      onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
-            <i class="fa-regular fa-user fs-6 mb-1"></i>
-            <small class="small">マイページ</small>
-          <% end %>
+          <div class="container py-3">
+            <!-- スマホ用検索フォーム -->
+            <% if authenticated? %>
+              <div class="d-lg-none mobile-search-area mb-3">
+                <%= form_with url: public_search_path,
+                              method: :get,
+                              local: true,
+                              class: "mobile-search-form" do |f| %>
 
-          <!-- =========================
-               ログアウト
-          ========================== -->
-          <%= link_to public_session_path,
-                      data: { turbo_method: :delete },
-                      class: "text-decoration-none text-center rounded-circle
-                             d-flex flex-column justify-content-center align-items-center
-                             border",
-                      style: "width: 76px;
-                             height: 76px;
-                             background-color: #FFFFFF;
-                             color: #BAC37E;
-                             border-color: #BAC37E !important;",
-                      onmouseover: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';",
-                      onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
+                  <%= hidden_field_tag :search_type, "post" %>
+                  <%= f.select :target_age,
+                              [
+                                ["対象年齢", ""],
+                                ["5〜6ヶ月", "5〜6ヶ月"],
+                                ["7〜8ヶ月", "7〜8ヶ月"],
+                                ["9〜11ヶ月", "9〜11ヶ月"],
+                                ["1歳〜", "1歳〜"]
+                              ],
+                              {},
+                              class: "form-select rounded-pill mobile-age-select" %>
 
-            <i class="fa-solid fa-arrow-right-from-bracket fs-6 mb-1"></i>
-            <small class="small">ログアウト</small>
-          <% end %>
+                  <div class="mobile-search-row">
+                    <%= f.text_field :keyword,
+                                     class: "form-control rounded-pill",
+                                     placeholder: "食材・料理名など" %>
 
-        <% else %>
+                    <%= f.submit "検索",
+                                 class: "btn btn-light rounded-pill mobile-search-button" %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
 
-          <!-- =========================
-               会員登録
-          ========================== -->
-          <%= link_to new_public_user_path,
-                      class: "text-decoration-none text-center rounded-circle
-                             d-flex flex-column justify-content-center align-items-center
-                             border",
-                      style: "width: 76px;
-                             height: 76px;
-                             background-color: #BAC37E;
-                             color: #FFFFFF;
-                             border-color: #BAC37E !important;",
-                      onmouseover: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';",
-                      onmouseout: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';" do %>
+            <!-- 共通ナビゲーション -->
+            <ul class="navbar-nav mx-auto align-items-stretch text-center mb-0 w-100">
+              <li class="nav-item">
+                <%= link_to "About",
+                            homes_about_path,
+                            class: "nav-link mogumo-nav-link fw-semibold px-lg-5 py-3" %>
+              </li>
 
-            <i class="fa-regular fa-pen-to-square fs-6 mb-1"></i>
-            <small class="small">会員登録</small>
-          <% end %>
+              <li class="nav-item">
+                <%= link_to "投稿一覧",
+                            public_posts_path,
+                            class: "nav-link mogumo-nav-link fw-semibold px-lg-5 py-3" %>
+              </li>
 
-          <!-- =========================
-               ログイン
-          ========================== -->
-          <%= link_to new_public_session_path,
-                      class: "text-decoration-none text-center rounded-circle
-                             d-flex flex-column justify-content-center align-items-center
-                             border",
-                      style: "width: 76px;
-                             height: 76px;
-                             background-color: #FFFFFF;
-                             color: #BAC37E;
-                             border-color: #BAC37E !important;",
-                      onmouseover: "this.style.backgroundColor='#BAC37E'; this.style.color='#FFFFFF';",
-                      onmouseout: "this.style.backgroundColor='#FFFFFF'; this.style.color='#BAC37E';" do %>
-            <i class="fa-regular fa-user fs-6 mb-1"></i>
-            <small class="small">ログイン</small>
-          <% end %>
-        <% end %>
-      </div>
+              <li class="nav-item">
+                <%= link_to "コミュニティ一覧",
+                            public_groups_path,
+                            class: "nav-link mogumo-nav-link fw-semibold px-lg-5 py-3" %>
+              </li>
+                            
+              <li class="nav-item">
+                <%= link_to "いいね一覧",
+                            public_likes_path,
+                            class: "nav-link mogumo-nav-link fw-semibold px-lg-5 py-3" %>
+              </li>
+            </ul>
+
+            <!-- スマホ用ユーザーメニュー：ナビゲーションの下 -->
+            <div class="d-lg-none mt-3">
+              <% if authenticated? %>
+
+                <%= link_to public_mypage_path,
+                            class: "btn w-100 mb-2 rounded-pill",
+                            style: "background-color: #BAC37E; color: #FFFFFF;" do %>
+                  <i class="fa-regular fa-user me-2"></i>マイページ
+                <% end %>
+
+                <%= link_to public_session_path,
+                            data: { turbo_method: :delete },
+                            class: "btn btn-light w-100 rounded-pill",
+                            style: "color: #B5977F;" do %>
+                  <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>ログアウト
+                <% end %>
+
+              <% else %>
+
+                <%= link_to new_public_user_path,
+                            class: "btn w-100 mb-2 rounded-pill",
+                            style: "background-color: #BAC37E; color: #FFFFFF;" do %>
+                  <i class="fa-regular fa-pen-to-square me-2"></i>新規会員登録
+                <% end %>
+
+                <%= link_to new_public_session_path,
+                            class: "btn btn-light w-100 rounded-pill",
+                            style: "color: #B5977F;" do %>
+                  <i class="fa-regular fa-user me-2"></i>ログイン
+                <% end %>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
-
-    <!-- =========================
-         ナビゲーション
-    ========================== -->
-    <nav>
-      <ul class="nav justify-content-center align-items-center mb-0">
-        <!-- About -->
-        <li class="nav-item border-start">
-          <%= link_to "About",
-                      homes_about_path,
-                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
-        </li>
-
-        <!-- 投稿一覧 -->
-        <li class="nav-item border-start">
-          <%= link_to "投稿一覧",
-                      public_posts_path,
-                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
-        </li>
-
-        <!-- コミュニティ一覧 -->
-        <li class="nav-item border-start">
-          <%= link_to "コミュニティ一覧",
-                      public_groups_path,
-                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
-        </li>
-
-        <!-- いいね一覧 -->
-        <li class="nav-item border-start border-end">
-          <%= link_to "いいね一覧",
-                      public_likes_path,
-                      class: "nav-link text-dark fw-semibold px-5 py-3" %>
-        </li>
-      </ul>
-    </nav>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menu = document.getElementById("mogumoHeaderMenu");
+      const headerArea = document.getElementById("mogumoHeaderArea");
+
+      if (!menu || !headerArea) return;
+
+      // メニューを開くとき
+      menu.addEventListener("show.bs.collapse", function () {
+        if (window.innerWidth < 992) {
+          headerArea.style.backgroundColor = "#F0E3D8";
+        }
+      });
+
+      // 閉じるアニメーションが完了したとき
+      menu.addEventListener("hidden.bs.collapse", function () {
+        if (window.innerWidth < 992) {
+          headerArea.style.backgroundColor = "#FFFFFF";
+        }
+      });
+
+      // PC表示では背景を白に戻す
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 992) {
+          headerArea.style.backgroundColor = "#FFFFFF";
+        }
+      });
+    });
+  </script>
 </header>

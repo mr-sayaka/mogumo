@@ -42,5 +42,25 @@
       </div>
     <% end %>
     <%= yield %>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const menu = document.getElementById("mogumoHeaderMenu");
+        const headerArea = document.getElementById("mogumoHeaderArea");
+
+        if (!menu || !headerArea) return;
+
+        menu.addEventListener("show.bs.collapse", function () {
+          if (window.innerWidth < 992) {
+            headerArea.style.backgroundColor = "#F0E3D8";
+          }
+        });
+
+        menu.addEventListener("hide.bs.collapse", function () {
+          headerArea.style.backgroundColor = "#FFFFFF";
+        });
+      });
+    </script>
+
   </body>
 </html>

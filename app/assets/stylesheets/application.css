@@ -8,3 +8,169 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* PC表示 */
+@media (min-width: 992px) {
+  /* mogumoロゴのサイズ */
+  .mogumo-logo {
+    display: block;
+    width: 250px !important;
+    max-width: none !important;
+    height: auto;
+  }
+
+  #mogumoHeaderArea > .container > .d-flex {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  #mogumoHeaderMenu > .container {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+
+  #mogumoHeaderMenu .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  #mogumoHeaderMenu .nav-item {
+    text-align: center;
+  }
+
+  #mogumoHeaderMenu .mogumo-nav-link {
+    position: relative;
+    border: none !important;
+  }
+
+  #mogumoHeaderMenu .nav-item .mogumo-nav-link::after {
+    content: "";
+    position: absolute;
+    top: 25%;
+    right: 0;
+    height: 50%;
+    border-right: 1px solid #D8D8D8;
+  }
+
+  #mogumoHeaderMenu .nav-item:first-child .mogumo-nav-link::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    left: 0;
+    height: 50%;
+    border-left: 1px solid #D8D8D8;
+  }
+}
+
+/* スマホ表示 */
+@media (max-width: 991.98px) {
+  #mogumoHeaderMenu.collapsing {
+    overflow: hidden;
+    transition: height 0.25s ease;
+  }
+
+  /* 検索エリア */
+  .mobile-search-area {
+    padding: 16px 0;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #D8D8D8;
+  }
+
+  .mobile-search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* 対象年齢 */
+  .mobile-age-select {
+    width: 100%;
+  }
+
+  /* 検索窓と検索ボタン */
+  .mobile-search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-search-row .form-control {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mobile-search-button {
+    flex-shrink: 0;
+    padding-right: 20px;
+    padding-left: 20px;
+    border: 1px solid #BAC37E;
+    color: #8B735E;
+  }
+}
+
+/* ハンバーガーメニュー */
+.mogumo-toggler {
+  border: none !important;
+  background: transparent;
+  box-shadow: none !important;
+}
+
+.hamburger-icon {
+  position: relative;
+  display: block;
+  width: 28px;
+  height: 24px;
+}
+
+.hamburger-icon span {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 28px;
+  height: 2px;
+  background-color: #BAC37E;
+  border-radius: 2px;
+  transition: top 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* メニューを閉じている状態 */
+.hamburger-icon span:nth-child(1) {
+  top: 3px;
+}
+
+.hamburger-icon span:nth-child(2) {
+  top: 11px;
+}
+
+.hamburger-icon span:nth-child(3) {
+  top: 19px;
+}
+
+/* メニューを開いている状態：× */
+.mogumo-toggler[aria-expanded="true"] .hamburger-icon span:nth-child(1) {
+  top: 11px;
+  transform: rotate(45deg);
+}
+
+.mogumo-toggler[aria-expanded="true"] .hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.mogumo-toggler[aria-expanded="true"] .hamburger-icon span:nth-child(3) {
+  top: 11px;
+  transform: rotate(-45deg);
+}
+
+/* ナビゲーション */
+.mogumo-nav-link {
+  color: #8B735E;
+  transition: color 0.2s ease;
+}
+
+.mogumo-nav-link:hover,
+.mogumo-nav-link:focus {
+  color: #BAC37E;
+}
