@@ -1,10 +1,7 @@
 <%= render "layouts/header" %>
 
-<!-- =========================
-     メインビジュアル
-========================== -->
-
-<div class="container py-5">
+<!-- メインビジュアル -->
+<div class="container py-4">
   <div class="row justify-content-center">
     <div class="col-12 col-lg-10">
       <div class="bg-warning-subtle rounded-4 p-3 p-lg-5 text-center">
@@ -34,14 +31,12 @@
       </div>
     </div>
   </div>
+</div>
 
-<!-- =========================
-     mogumoについて
-========================== -->
-
+<!-- mogumoについて -->
 <div class="container py-5">
-  <div class="text-center mb-5">
-    <h2 class="fw-bold">
+  <div class="text-center mb-3 mb-md-5">
+    <h2 class="fw-bold mogumo-heading">
       <span class="small text-secondary">・・・・</span>
       mogumoでできること
       <span class="small text-secondary">・・・・</span>
@@ -49,11 +44,10 @@
   </div>
 
   <div class="row row-cols-1 row-cols-md-3 g-4">
-
     <!-- レシピを探す -->
     <div class="col">
       <div class="card border-0 shadow-sm rounded-4 h-100">
-        <div class="card-body text-center p-4">
+        <div class="card-body text-center p-3 p-md-4">
           <div class="mb-3">
             <i class="bi bi-search fs-1 text-success"></i>
           </div>
@@ -71,7 +65,7 @@
     <!-- レシピを投稿 -->
     <div class="col">
       <div class="card border-0 shadow-sm rounded-4 h-100">
-        <div class="card-body text-center p-4">
+        <div class="card-body text-center p-3 p-md-4">
           <div class="mb-3">
             <i class="bi bi-journal-plus fs-1 text-success"></i>
           </div>
@@ -89,7 +83,7 @@
     <!-- コミュニティー -->
     <div class="col">
       <div class="card border-0 shadow-sm rounded-4 h-100">
-        <div class="card-body text-center p-4">
+        <div class="card-body text-center p-3 p-md-4">
           <div class="mb-3">
             <i class="bi bi-people fs-1 text-success"></i>
           </div>
@@ -107,31 +101,30 @@
   </div>
 </div>
 
-<!-- =========================
-     新着レシピ
-========================== -->
-
+<!-- 新着レシピ -->
 <div class="container py-5">
   <div class="d-flex justify-content-center align-items-center position-relative mb-4">
-    <h2 class="fw-bold mb-0">
+    <h2 class="fw-bold mogumo-heading">
       <span class="small text-secondary">・・・・</span>
       新着レシピ
       <span class="small text-secondary">・・・・</span>
     </h2>
+
+    <!-- PC表示時のみ右側に表示 -->
     <%= link_to public_posts_path,
-              class: "btn btn-outline-success btn-sm rounded-pill position-absolute end-0 px-4" do %>
+                class: "btn btn-outline-success btn-sm rounded-pill position-absolute end-0 px-4 d-none d-md-inline-block" do %>
       もっと見る
       <i class="bi bi-chevron-right ms-2"></i>
     <% end %>
   </div>
 
   <% if defined?(@posts) && @posts.present? %>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+    <div class="row row-cols-2 row-cols-lg-4 g-3 g-lg-4">
       <% @posts.first(4).each do |post| %>
         <div class="col">
           <%= link_to public_post_path(post),
                       class: "text-decoration-none text-dark" do %>
-            <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
+            <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm recipe-card">
 
               <!-- 画像 -->
               <div class="ratio ratio-4x3 bg-secondary-subtle">
@@ -142,39 +135,38 @@
               </div>
 
               <!-- 投稿情報 -->
-              <div class="card-body bg-warning-subtle">
+              <div class="card-body bg-warning-subtle recipe-card-body">
                 <!-- 公開状態 -->
-                <div class="mb-3">
-                  <% if post.visibility == "public" %>
-                    <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+                <% if post.visibility == "public" %>
+                  <div class="mb-2">
+                    <span class="badge bg-success-subtle text-success-emphasis rounded-pill recipe-badge">
                       全体公開
                     </span>
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
 
                 <!-- ユーザー名 -->
-                <p class="small fw-bold mb-2">
+                <p class="small fw-bold text-secondary mb-2 recipe-user-name">
                   <%= post.user.name %>
                 </p>
 
                 <!-- タイトル -->
-                <h5 class="fw-bold mb-3">
+                <h5 class="fw-bold mb-3 recipe-title">
                   <%= post.title %>
                 </h5>
 
                 <!-- 対象年齢 -->
                 <% if post.target_age.present? %>
-                  <p class="small text-muted mb-2">
+                  <p class="small text-muted mb-2 recipe-age">
                     対象年齢：<%= post.target_age %>
                   </p>
                 <% end %>
 
                 <!-- 投稿日 -->
-                <div class="d-flex justify-content-between align-items-center">
-                  <p class="small text-secondary mb-0">
-                    <%= post.created_at.strftime("%Y/%m/%d") %>
-                  </p>
-                </div>
+                <p class="small text-secondary mb-0 recipe-date">
+                  <%= post.created_at.strftime("%Y/%m/%d") %>
+                </p>
+
               </div>
             </div>
           <% end %>
@@ -192,14 +184,21 @@
       </div>
     </div>
   <% end %>
+
+  <div class="text-center mt-4 d-md-none">
+    <%= link_to public_posts_path,
+                class: "btn btn-outline-success rounded-pill px-5 w-100 ms-lg-2",
+                style: "max-width: 280px;" do %>
+      もっと見る
+      <i class="bi bi-chevron-right ms-2"></i>
+    <% end %>
+  </div>
 </div>
 
-<!-- =========================
-     コミュニティー
-========================== -->
+<!-- コミュニティー -->
 <div class="container py-5">
-  <div class="text-center mb-5">
-    <h2 class="fw-bold">
+  <div class="text-center mb-3 mb-md-5">
+    <h2 class="fw-bold mogumo-heading">
       <span class="small text-secondary">・・・・</span>
       コミュニティー
       <span class="small text-secondary">・・・・</span>
@@ -218,10 +217,8 @@
   </div>
 </div>
 
-<!-- =========================
-     About
-========================== -->
-<div class="container py-5">
+<!-- About -->
+<div class="container py-4">
   <div class="row justify-content-center">
     <div class="col-12 col-lg-9">
       <div class="card border-0 shadow-sm rounded-4">
