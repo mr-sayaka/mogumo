@@ -109,6 +109,38 @@
     border: 1px solid #BAC37E;
     color: #8B735E;
   }
+
+  .mogumo-heading {
+    font-size: 1.25rem;
+  }
+
+  /* スマホ表示時のレシピカード */
+  .recipe-card-body {
+    padding: 0.65rem;
+  }
+
+  .recipe-badge {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .recipe-user-name {
+    font-size: 0.7rem;
+    overflow-wrap: anywhere;
+  }
+
+  .recipe-title {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.6rem !important;
+    overflow-wrap: anywhere;
+  }
+
+  .recipe-age,
+  .recipe-date {
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
 }
 
 /* ハンバーガーメニュー */
