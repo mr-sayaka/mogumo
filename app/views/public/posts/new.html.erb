@@ -25,7 +25,11 @@
 
             <!-- 画像 -->
             <div class="mb-4">
-              <%= f.label :image, "離乳食の画像", class: "form-label" %>
+              <%= f.label :image, class: "form-label" do %>
+                離乳食の画像
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.file_field :image,
                     class: "form-control",
                     accept: "image/*" %>
@@ -36,7 +40,11 @@
             
             <!-- タイトル -->
             <div class="mb-4">
-              <%= f.label :title, "タイトル", class: "form-label" %>
+              <%= f.label :title, class: "form-label" do %>
+                タイトル
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_field :title,
                     class: "form-control",
                     placeholder: "例：10ヶ月の息子が喜んだ野菜たっぷり離乳食" %>
@@ -44,7 +52,11 @@
 
             <!-- 紹介文 -->
             <div class="mb-4">
-              <%= f.label :introduction, "紹介文", class: "form-label" %>
+              <%= f.label :introduction, class: "form-label" do %>
+                紹介文
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_area :introduction,
                     rows: 4,
                     class: "form-control",
@@ -53,7 +65,10 @@
 
             <!-- 公開範囲 -->
             <div class="mb-4">
-              <%= f.label :visibility, "公開範囲", class: "form-label" %>
+              <%= f.label :visibility, class: "form-label" do %>
+                公開範囲
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
 
               <%= f.select :visibility,
                            [
@@ -63,27 +78,34 @@
                            {},
                            class: "form-select" %>
             </div>
-                          
+
             <!-- コミュニティー -->
             <div class="mb-4">
-              <%= f.label :group_id, "コミュニティー", class: "form-label" %>
-                          
+              <%= f.label :group_id, class: "form-label" do %>
+                コミュニティー
+                <span class="badge bg-info text-dark ms-2">条件付き必須</span>
+              <% end %>
+
               <%= f.collection_select :group_id,
                                       @joined_groups,
                                       :id,
                                       :name,
                                       { include_blank: "コミュニティーを選択してください" },
                                       { class: "form-select" } %>
-                                      
+
               <div class="form-text">
-                コミュニティー限定を選択した場合、参加中のコミュニティーを選択してください。
+                ※ 公開範囲で「コミュニティー限定」を選択した場合は、
+                コミュニティーの選択が必要です。
               </div>
-              
             </div>
+
             <!-- 対象年齢 -->
             <div class="mb-4">
-              <%= f.label :target_age, "対象年齢", class: "form-label" %>
-                                
+              <%= f.label :target_age, class: "form-label" do %>
+                対象年齢
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.select :target_age,
                            [
                              ["対象年齢を選択してください", ""],
@@ -98,7 +120,11 @@
 
             <!-- 材料 -->
             <div class="mb-4">
-              <%= f.label :ingredients, "材料", class: "form-label" %>
+              <%= f.label :ingredients, class: "form-label" do %>
+                材料
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_area :ingredients,
                     rows: 6,
                     class: "form-control",
@@ -107,7 +133,11 @@
 
             <!-- 作り方 -->
             <div class="mb-4">
-              <%= f.label :how_to_make, "作り方", class: "form-label" %>
+              <%= f.label :how_to_make, class: "form-label" do %>
+                作り方
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_area :how_to_make,
                     rows: 8,
                     class: "form-control",
@@ -128,7 +158,6 @@
               <%= f.submit "投稿する",
                   class: "btn btn-success px-5 rounded-pill" %>
             </div>
-
           <% end %>
         </div>
       </div>

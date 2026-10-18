@@ -26,7 +26,10 @@
 
             <!-- 画像 -->
             <div class="mb-4">
-              <%= f.label :image, "離乳食の画像", class: "form-label" %>
+              <%= f.label :image, class: "form-label" do %>
+                離乳食の画像
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
 
               <% if @post.image.attached? %>
                 <div class="mb-3">
@@ -34,20 +37,28 @@
                                 class: "img-fluid rounded-3",
                                 style: "max-height: 300px;" %>
                 </div>
-                                
+
                 <p class="text-secondary small mb-2">
                   新しい画像を選択すると画像を変更できます。
                 </p>
               <% end %>
-                                
+
               <%= f.file_field :image,
                     class: "form-control",
-                    accept: "image/*" %>
+                    accept: "image/jpeg,image/png,image/webp" %>
+
+              <div class="form-text">
+                JPEG・PNG・WebP形式、5MB以下の画像を選択してください。
+              </div>
             </div>
 
             <!-- タイトル -->
             <div class="mb-4">
-              <%= f.label :title, "タイトル", class: "form-label" %>
+              <%= f.label :title, class: "form-label" do %>
+                タイトル
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_field :title,
                     class: "form-control",
                     placeholder: "例：10ヶ月の息子が喜んだ野菜たっぷり離乳食" %>
@@ -55,16 +66,60 @@
 
             <!-- 紹介文 -->
             <div class="mb-4">
-              <%= f.label :introduction, "紹介文", class: "form-label" %>
+              <%= f.label :introduction, class: "form-label" do %>
+                紹介文
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_area :introduction,
                     rows: 4,
                     class: "form-control",
                     placeholder: "この離乳食について紹介してください" %>
             </div>
 
+            <!-- 公開範囲 -->
+            <div class="mb-4">
+              <%= f.label :visibility, class: "form-label" do %>
+                公開範囲
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
+              <%= f.select :visibility,
+                           [
+                             ["全体公開", "public"],
+                             ["コミュニティー限定", "group"]
+                           ],
+                           {},
+                           class: "form-select" %>
+            </div>
+
+            <!-- コミュニティー -->
+            <div class="mb-4">
+              <%= f.label :group_id, class: "form-label" do %>
+                コミュニティー
+                <span class="badge bg-info text-dark ms-2">条件付き必須</span>
+              <% end %>
+
+              <%= f.collection_select :group_id,
+                                      Current.user.joined_groups,
+                                      :id,
+                                      :name,
+                                      { prompt: "コミュニティーを選択してください" },
+                                      { class: "form-select" } %>
+
+              <div class="form-text">
+                ※ 公開範囲で「コミュニティー限定」を選択した場合は、
+                コミュニティーの選択が必要です。
+              </div>
+            </div>
+
             <!-- 対象年齢 -->
             <div class="mb-4">
-              <%= f.label :target_age, "対象年齢", class: "form-label" %>
+              <%= f.label :target_age, class: "form-label" do %>
+                対象年齢
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.select :target_age,
                            [
                              ["対象年齢を選択してください", ""],
@@ -79,7 +134,11 @@
 
             <!-- 材料 -->
             <div class="mb-4">
-              <%= f.label :ingredients, "材料", class: "form-label" %>
+              <%= f.label :ingredients, class: "form-label" do %>
+                材料
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_area :ingredients,
                     rows: 6,
                     class: "form-control",
@@ -88,39 +147,21 @@
 
             <!-- 作り方 -->
             <div class="mb-4">
-              <%= f.label :how_to_make, "作り方", class: "form-label" %>
+              <%= f.label :how_to_make, class: "form-label" do %>
+                作り方
+                <span class="badge bg-warning text-dark ms-2">必須</span>
+              <% end %>
+
               <%= f.text_area :how_to_make,
                     rows: 8,
                     class: "form-control",
                     placeholder: "作り方を順番に入力してください" %>
             </div>
 
-            <!-- 公開範囲 -->
-            <div class="mb-4">
-              <%= f.label :visibility, "公開範囲", class: "form-label" %>
-              <%= f.select :visibility,
-                           [
-                             ["全体公開", "public"],
-                             ["グループ限定", "group"]
-                           ],
-                           {},
-                           class: "form-select" %>
-            </div>
-
-            <!-- 公開するグループ -->
-            <div class="mb-4">
-              <%= f.label :group_id, "公開するグループ", class: "form-label" %>
-              <%= f.collection_select :group_id,
-                                      Current.user.joined_groups,
-                                      :id,
-                                      :name,
-                                      { prompt: "グループを選択してください" },
-                                      { class: "form-select" } %>
-            </div>
-
             <!-- アレルギー -->
             <div class="mb-4">
               <%= f.label :allergy, "アレルギー情報", class: "form-label" %>
+
               <%= f.text_area :allergy,
                     rows: 3,
                     class: "form-control",
@@ -141,6 +182,7 @@
         <%= link_to "投稿詳細に戻る", public_post_path(@post),
             class: "btn btn-outline-secondary btn-sm px-3 rounded-pill" %>
       </div>
+
     </div>
   </div>
 </div>

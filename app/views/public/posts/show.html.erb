@@ -1,57 +1,44 @@
 <%= render "layouts/header" %>
 
 <div class="container py-5">
-
   <!-- 投稿タイトル -->
   <div class="text-center mb-4">
-  
     <h1 class="fw-bold">
       <%= @post.title %>
     </h1>
-  
+
     <p class="text-secondary small mt-3 mb-0">
       <%= @post.user.name %>
       ・
       <%= @post.created_at.strftime("%Y/%m/%d") %>
     </p>
-  
   </div>
 
+  <!-- いいね -->
+  <div class="text-center mb-4">
+    <% if @post.likes.exists?(user: Current.user) %>
+      <%= button_to public_post_like_path(@post),
+                    method: :delete,
+                    class: "btn btn-link text-danger text-decoration-none p-0" do %>
+        <i class="fa-solid fa-heart fs-4"></i>
+        <span class="ms-1">
+          <%= @post.likes.count %>
+        </span>
+      <% end %>
 
-<!-- いいね -->
-<div class="text-center mb-4">
+    <% else %>
 
-  <% if @post.likes.exists?(user: Current.user) %>
-
-    <%= button_to public_post_like_path(@post),
-                  method: :delete,
-                  class: "btn btn-link text-danger text-decoration-none p-0" do %>
-
-      <i class="fa-solid fa-heart fs-4"></i>
-      <span class="ms-1">
-        <%= @post.likes.count %>
-      </span>
-
+      <%= button_to public_post_like_path(@post),
+                    method: :post,
+                    class: "btn btn-link text-secondary text-decoration-none p-0" do %>
+        <i class="fa-regular fa-heart fs-4"></i>
+        <span class="ms-1">
+          <%= @post.likes.count %>
+        </span>
+      <% end %>
     <% end %>
-
-  <% else %>
-
-    <%= button_to public_post_like_path(@post),
-                  method: :post,
-                  class: "btn btn-link text-secondary text-decoration-none p-0" do %>
-
-      <i class="fa-regular fa-heart fs-4"></i>
-      <span class="ms-1">
-        <%= @post.likes.count %>
-      </span>
-
-    <% end %>
-
-  <% end %>
-
-       
   </div>
-  
+
   <!-- 投稿画像 -->
   <% if @post.image.attached? %>
     <div class="text-center mb-5">
@@ -61,17 +48,12 @@
     </div>
   <% end %>
 
-
   <!-- 投稿内容 -->
   <div class="row justify-content-center">
-
     <div class="col-12 col-lg-9">
-
       <!-- 基本情報 -->
       <div class="card border-0 shadow-sm mb-4">
-
         <div class="card-body p-4">
-
           <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
             レシピについて
           </h2>
@@ -80,19 +62,16 @@
             <h3 class="h6 fw-bold mb-2">
               ひとこと
             </h3>
-
-            <p class="mb-0">
-              <%= simple_format(@post.introduction) %>
-            </p>
+            <div class="mb-0">
+              <%= simple_format(h(@post.introduction), {}, sanitize: false) %>
+            </div>
           </div>
 
           <div class="row">
-
             <div class="col-md-6 mb-3">
               <h3 class="h6 fw-bold mb-2">
                 対象年齢
               </h3>
-
               <p class="mb-0">
                 <%= @post.target_age %>
               </p>
@@ -102,141 +81,99 @@
               <h3 class="h6 fw-bold mb-2">
                 アレルギー
               </h3>
-
-              <p class="mb-0">
-                <%= @post.allergy %>
-              </p>
+              <div class="mb-0">
+                <%= simple_format(h(@post.allergy), {}, sanitize: false) %>
+              </div>
             </div>
-
           </div>
-
         </div>
-
       </div>
-
 
       <!-- 材料 -->
       <div class="card border-0 shadow-sm mb-4">
-
         <div class="card-body p-4">
-
           <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
             材料
           </h2>
-
           <div>
-            <%= simple_format(@post.ingredients) %>
+            <%= simple_format(h(@post.ingredients), {}, sanitize: false) %>
           </div>
-
         </div>
-
       </div>
-
 
       <!-- 作り方 -->
       <div class="card border-0 shadow-sm mb-4">
-
         <div class="card-body p-4">
-
           <h2 class="h5 fw-bold border-bottom pb-3 mb-4">
             作り方
           </h2>
-
           <div>
-            <%= simple_format(@post.how_to_make) %>
+            <%= simple_format(h(@post.how_to_make), {}, sanitize: false) %>
           </div>
-
         </div>
-
       </div>
 
-
       <!-- ボタン -->
-<div class="text-center mt-5">
+      <div class="text-center mt-5">
+        <% if Current.user == @post.user %>
+          <%= link_to "編集する",
+              edit_public_post_path(@post),
+              class: "btn btn-success rounded-pill px-4 me-2" %>
 
-  <% if Current.user == @post.user %>
-    <%= link_to "編集する",
-        edit_public_post_path(@post),
-        class: "btn btn-success rounded-pill px-4 me-2" %>
-    
-    <%= button_to "削除する",
-        public_post_path(@post),
-        method: :delete,
-        class: "btn btn-outline-danger rounded-pill px-4",
-        form: {
-          class: "d-inline",
-          data: {
-            turbo_confirm: "この投稿を削除しますか？"
-          }
-        } %>
-  <% end %>
+          <%= button_to "削除する",
+              public_post_path(@post),
+              method: :delete,
+              class: "btn btn-outline-danger rounded-pill px-4",
+              form: {
+                class: "d-inline",
+                data: {
+                  turbo_confirm: "この投稿を削除しますか？"
+                }
+              } %>
+        <% end %>
 
-  <%= link_to "投稿一覧に戻る",
-      public_posts_path,
-      class: "btn btn-outline-secondary rounded-pill px-4" %>
-
-</div>
-
+        <%= link_to "投稿一覧に戻る",
+            public_posts_path,
+            class: "btn btn-outline-secondary rounded-pill px-4" %>
+      </div>
     </div>
-
   </div>
-
 </div>
 
-<!-- =========================
-     コメント
-========================== -->
-
+<!-- コメント -->
 <div class="row justify-content-center mt-5">
-
   <div class="col-12 col-lg-9">
-
     <h3 class="fw-bold mb-4">
       コメント
     </h3>
 
-
     <!-- コメント投稿フォーム -->
     <div class="card border-0 bg-light mb-4">
-
       <div class="card-body p-4">
-
         <%= form_with model: [@post, Comment.new],
                       url: public_post_comments_path(@post) do |f| %>
 
           <div class="mb-3">
-
             <%= f.text_area :body,
                             rows: 4,
                             class: "form-control",
                             placeholder: "コメントを入力してください" %>
-
           </div>
 
           <div class="text-end">
-
             <%= f.submit "コメントする",
                          class: "btn btn-success rounded-pill px-4" %>
-
           </div>
-
         <% end %>
-
       </div>
-
     </div>
-
 
     <!-- コメント一覧 -->
     <% if @post.comments.present? %>
-
       <% @post.comments.order(created_at: :desc).each do |comment| %>
-
         <div class="border-bottom py-3">
-
           <!-- ユーザー名・日時 -->
           <div class="d-flex justify-content-between align-items-center">
-
             <%= link_to comment.user.name,
                         public_user_path(comment.user),
                         class: "text-decoration-none fw-bold text-dark" %>
@@ -244,23 +181,16 @@
             <small class="text-muted">
               <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
             </small>
-
           </div>
-
 
           <!-- コメント本文 -->
           <div class="mt-2">
-
-            <%= simple_format(comment.body) %>
-
+            <%= simple_format(h(comment.body), {}, sanitize: false) %>
           </div>
-
 
           <!-- 自分のコメントのみ編集・削除 -->
           <% if comment.user == Current.user %>
-
             <div class="text-end mt-2">
-
               <!-- 編集ボタン -->
               <button type="button"
                       class="btn btn-outline-primary btn-sm rounded-pill px-3 me-1"
@@ -268,7 +198,6 @@
                       data-bs-target="#comment-edit-<%= comment.id %>">
                 編集
               </button>
-
 
               <!-- 削除 -->
               <%= link_to "削除",
@@ -278,48 +207,34 @@
                             turbo_confirm: "このコメントを削除しますか？"
                           },
                           class: "btn btn-outline-danger btn-sm rounded-pill px-3" %>
-
             </div>
-
 
             <!-- 編集フォーム -->
             <div class="collapse mt-3"
                  id="comment-edit-<%= comment.id %>">
-
               <%= form_with model: comment,
                             url: public_post_comment_path(@post, comment),
                             method: :patch do |f| %>
-
                 <div class="mb-2">
-
                   <%= f.text_area :body,
                                   rows: 3,
                                   class: "form-control" %>
-
                 </div>
 
                 <div class="text-end">
-
                   <%= f.submit "保存",
                                class: "btn btn-success btn-sm rounded-pill px-3 me-1" %>
-
                   <button type="button"
                           class="btn btn-outline-secondary btn-sm rounded-pill px-3"
                           data-bs-toggle="collapse"
                           data-bs-target="#comment-edit-<%= comment.id %>">
                     キャンセル
                   </button>
-
                 </div>
-
               <% end %>
-
             </div>
-
           <% end %>
-
         </div>
-
       <% end %>
 
     <% else %>
@@ -327,11 +242,8 @@
       <p class="text-muted">
         まだコメントはありません。
       </p>
-
     <% end %>
-
   </div>
-
 </div>
 
 <%= render "layouts/footer" %>
