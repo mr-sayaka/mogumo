@@ -125,6 +125,8 @@
                 <%= form.label :password_confirmation,
                       "パスワードの確認",
                       class: "fw-bold" %>
+                      
+                <span class="badge bg-info text-dark ms-2">条件付き必須</span>
               </div>
 
               <div class="col-md-8 py-3 px-4">
@@ -141,7 +143,7 @@
                     class: "btn btn-success rounded-pill px-5 py-2" %>
 
               <%= link_to "キャンセル",
-                    public_user_path(@user),
+                    public_mypage_path(@user),
                     class: "btn btn-outline-secondary rounded-pill px-5 py-2" %>
             </div>
           <% end %>

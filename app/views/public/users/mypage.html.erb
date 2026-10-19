@@ -28,6 +28,13 @@
             </p>
           </div>
 
+          <div class="mb-4">
+            <strong>自己紹介</strong>
+            <p class="mb-0">
+              <%= @user.introduction %>
+            </p>
+          </div>
+
           <div class="text-center">
             <%= link_to "ユーザー情報を編集",
                         edit_public_user_path(@user),
