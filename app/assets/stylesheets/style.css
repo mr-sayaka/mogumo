@@ -51,3 +51,9 @@ h3 {
     color: #fff !important;
     box-shadow: none !important;
 }
+
+/* コメント本文の長い英数字を折り返す */
+.comment-body {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
