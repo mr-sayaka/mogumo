@@ -5,7 +5,17 @@ class Admin < ApplicationRecord
 
   normalizes :email_address, with: ->(email) { email.strip.downcase }
 
-  validates :name, presence: true
-  validates :email_address, presence: true, uniqueness: true
-  validates :password, length: { minimum: 6 }, allow_nil: true
+  validates :name, 
+            presence: true,
+            length: { maximum: 15 }
+
+  validates :email_address, 
+            presence: true, 
+            uniqueness: true,
+            length: { maximum: 255 },
+            format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  validates :password, 
+            length: { minimum: 6 },
+             allow_nil: true
 end
