@@ -1,4 +1,4 @@
-<h1 class="h3 mb-4">グループを編集</h1>
+<h1 class="h3 mb-4">コミュニティーを編集</h1>
 
 <div class="card shadow-sm">
 
@@ -8,11 +8,11 @@
                   url: admin_group_path(@group),
                   method: :patch do |f| %>
 
-      <!-- グループ名 -->
+      <!-- コミュニティー名 -->
       <div class="mb-3">
 
         <%= f.label :name,
-                    "グループ名",
+                    "コミュニティー名",
                     class: "form-label" %>
 
         <%= f.text_field :name,
@@ -21,17 +21,17 @@
 
       </div>
 
-      <!-- グループ説明 -->
+      <!-- コミュニティー説明 -->
       <div class="mb-3">
 
         <%= f.label :description,
-                    "グループ説明",
+                    "コミュニティー説明",
                     class: "form-label" %>
 
         <%= f.text_area :description,
                         class: "form-control",
                         rows: 4,
-                        placeholder: "グループの目的や雰囲気を入力してください" %>
+                        placeholder: "コミュニティーの目的や雰囲気を入力してください" %>
 
       </div>
 
@@ -52,7 +52,7 @@
       <div class="mb-4">
 
         <%= f.label :rules,
-                    "グループルール",
+                    "コミュニティールール",
                     class: "form-label" %>
 
         <%= f.text_area :rules,

@@ -1,4 +1,4 @@
-<h1 class="h3 mb-4">グループを作成</h1>
+<h1 class="h3 mb-4">コミュニティーを作成</h1>
 
 <div class="card shadow-sm">
   <div class="card-body">
@@ -16,23 +16,23 @@
     <%= form_with model: @group,
                   url: admin_groups_path do |f| %>
 
-      <!-- グループ名 -->
+      <!-- コミュニティー名 -->
       <div class="mb-3">
-        <%= f.label :name, "グループ名", class: "form-label" %>
+        <%= f.label :name, "コミュニティー名", class: "form-label" %>
 
         <%= f.text_field :name,
                          class: "form-control",
                          placeholder: "例：1歳児の離乳食を共有しよう" %>
       </div>
 
-      <!-- グループ説明 -->
+      <!-- コミュニティー説明 -->
       <div class="mb-3">
-        <%= f.label :description, "グループ説明", class: "form-label" %>
+        <%= f.label :description, "コミュニティー説明", class: "form-label" %>
 
         <%= f.text_area :description,
                         class: "form-control",
                         rows: 4,
-                        placeholder: "グループの目的や雰囲気を入力してください" %>
+                        placeholder: "コミュニティーの目的や雰囲気を入力してください" %>
       </div>
 
       <!-- テーマ -->
@@ -46,7 +46,7 @@
 
       <!-- ルール -->
       <div class="mb-4">
-        <%= f.label :rules, "グループルール", class: "form-label" %>
+        <%= f.label :rules, "コミュニティールール", class: "form-label" %>
 
         <%= f.text_area :rules,
                         class: "form-control",
@@ -57,7 +57,7 @@
       <!-- ボタン -->
       <div class="d-flex gap-2">
 
-        <%= f.submit "グループを作成",
+        <%= f.submit "コミュニティーを作成",
                      class: "btn btn-primary px-4" %>
 
         <%= link_to "キャンセル",
