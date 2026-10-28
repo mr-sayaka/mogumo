@@ -1,8 +1,6 @@
 <h1 class="h3 mb-4">管理者一覧</h1>
 
-<%= link_to "新規管理者登録",
-            new_admin_admin_path,
-            class: "btn btn-primary mb-3" %>
+<%= link_to "新規管理者登録", new_admin_admin_path, class: "btn btn-primary mb-3" %>
 
 <div class="card shadow-sm">
   <div class="card-body">
@@ -22,11 +20,9 @@
           <tr>
             <td><%= admin.name %></td>
             <td><%= admin.email_address %></td>
-            <td><%= l admin.created_at, format: :short %></td>
+            <td><%= admin.created_at.strftime("%Y/%m/%d %H:%M") %></td>
             <td>
-              <%= link_to "詳細",
-                          admin_admin_path(admin),
-                          class: "btn btn-sm btn-outline-primary" %>
+              <%= link_to "詳細", admin_admin_path(admin), class: "btn btn-sm btn-outline-primary" %>
             </td>
           </tr>
         <% end %>

@@ -1,4 +1,4 @@
-<h1 class="h3 mb-4">コミュニティーを作成</h1>
+<h1 class="h3 mb-4">コミュニティを作成</h1>
 
 <div class="card shadow-sm">
   <div class="card-body">
@@ -13,40 +13,43 @@
       </div>
     <% end %>
 
-    <%= form_with model: @group,
-                  url: admin_groups_path do |f| %>
+    <%= form_with model: @group, url: admin_groups_path do |f| %>
 
-      <!-- コミュニティー名 -->
+      <!-- コミュニティ名 -->
       <div class="mb-3">
-        <%= f.label :name, "コミュニティー名", class: "form-label" %>
+        <%= f.label :name, "コミュニティ名", class: "form-label" %>
+        <span class="badge bg-warning text-dark">必須</span>
 
         <%= f.text_field :name,
                          class: "form-control",
                          placeholder: "例：1歳児の離乳食を共有しよう" %>
       </div>
 
-      <!-- コミュニティー説明 -->
+      <!-- コミュニティ説明 -->
       <div class="mb-3">
-        <%= f.label :description, "コミュニティー説明", class: "form-label" %>
+        <%= f.label :description, "コミュニティ説明", class: "form-label" %>
+        <span class="badge bg-warning text-dark">必須</span>
 
         <%= f.text_area :description,
                         class: "form-control",
                         rows: 4,
-                        placeholder: "コミュニティーの目的や雰囲気を入力してください" %>
+                        placeholder: "コミュニティの目的や雰囲気を入力してください" %>
       </div>
 
       <!-- テーマ -->
       <div class="mb-3">
         <%= f.label :theme, "テーマ", class: "form-label" %>
+        <span class="badge bg-warning text-dark">必須</span>
 
         <%= f.text_field :theme,
                          class: "form-control",
                          placeholder: "例：1歳児向け離乳食" %>
       </div>
 
-      <!-- ルール -->
+      <!-- コミュニティルール -->
       <div class="mb-4">
-        <%= f.label :rules, "コミュニティールール", class: "form-label" %>
+        <%= f.label :rules, "コミュニティルール", class: "form-label" %>
+        <span class="badge bg-warning text-dark">必須</span>
 
         <%= f.text_area :rules,
                         class: "form-control",
@@ -56,14 +59,8 @@
 
       <!-- ボタン -->
       <div class="d-flex gap-2">
-
-        <%= f.submit "コミュニティーを作成",
-                     class: "btn btn-primary px-4" %>
-
-        <%= link_to "キャンセル",
-                    admin_groups_path,
-                    class: "btn btn-outline-secondary px-4" %>
-
+        <%= f.submit "コミュニティを作成", class: "btn btn-primary px-4" %>
+        <%= link_to "キャンセル", admin_groups_path, class: "btn btn-outline-secondary px-4" %>
       </div>
 
     <% end %>

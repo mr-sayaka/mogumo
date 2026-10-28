@@ -1,52 +1,39 @@
 <div class="container py-4">
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-
-    <h1 class="h3 mb-0">コミュニティー詳細</h1>
-
+    <h1 class="h3 mb-0">コミュニティ詳細</h1>
     <div class="d-flex gap-2">
-
-      <%= link_to "コミュニティー一覧へ",
-                  admin_groups_path,
-                  class: "btn btn-outline-secondary" %>
-
+      <%= link_to "コミュニティ一覧へ", admin_groups_path, class: "btn btn-outline-secondary" %>
     </div>
-
   </div>
 
   <div class="card shadow-sm">
-
     <div class="card-body">
 
-      <!-- コミュニティー名 -->
+      <!-- コミュニティ名 -->
       <div class="mb-4">
-
         <h2 class="h5">
-          コミュニティー名
+          コミュニティ名
         </h2>
 
         <p class="mb-0">
           <%= @group.name %>
         </p>
-
       </div>
 
-      <!-- コミュニティー説明 -->
+      <!-- コミュニティ説明 -->
       <div class="mb-4">
-
         <h2 class="h5">
-          コミュニティー説明
+          コミュニティ説明
         </h2>
 
         <p class="mb-0">
           <%= simple_format(@group.description) %>
         </p>
-
       </div>
 
       <!-- テーマ -->
       <div class="mb-4">
-
         <h2 class="h5">
           テーマ
         </h2>
@@ -54,25 +41,21 @@
         <p class="mb-0">
           <%= simple_format(@group.theme) %>
         </p>
-
       </div>
 
-      <!-- ルール -->
+      <!-- コミュニティルール -->
       <div class="mb-4">
-
         <h2 class="h5">
-          コミュニティールール
+          コミュニティルール
         </h2>
 
         <p class="mb-0">
           <%= simple_format(@group.rules) %>
         </p>
-
       </div>
 
       <!-- 参加者数 -->
       <div class="mb-4">
-
         <h2 class="h5">
           参加者数
         </h2>
@@ -80,22 +63,18 @@
         <p class="mb-0">
           <%= @group.members.count %>人
         </p>
-
       </div>
     </div>
   </div>
   
   <div class="mt-4 d-flex gap-2">
-    <%= link_to "編集",
-                edit_admin_group_path(@group),
-                class: "btn btn-outline-primary" %>
-
+    <%= link_to "編集", edit_admin_group_path(@group), class: "btn btn-outline-primary" %>
     <%= button_to "削除",
                   admin_group_path(@group),
                   method: :delete,
                   class: "btn btn-outline-danger",
                   data: {
-                    turbo_confirm: "このコミュニティーを削除しますか？"
+                    turbo_confirm: "このコミュニティを削除しますか？"
                   } %>
   </div>
 </div>
