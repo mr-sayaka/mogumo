@@ -6,45 +6,38 @@
     <% if @comments.any? %>
 
       <div class="table-responsive">
-
-        <table class="table table-hover align-middle">
-
+        <table class="table table-hover align-middle" style="table-layout: fixed; width: 100%;">
           <thead>
             <tr>
-              <th>コメント</th>
-              <th>投稿者</th>
-              <th>投稿</th>
-              <th>投稿日</th>
-              <th></th>
+              <th style="width: 60%;">コメント</th>
+              <th style="width: 8%;">投稿者</th>
+              <th style="width: 12%;">投稿</th>
+              <th style="width: 12%;">投稿日</th>
+              <th style="width: 8%;"></th>
             </tr>
           </thead>
 
           <tbody>
-
             <% @comments.each do |comment| %>
-
               <tr>
-
                 <!-- コメント -->
                 <td>
-                  <%= truncate(comment.body, length: 80) %>
+                  <%= link_to truncate(comment.body, length: 120), public_post_path(comment.post), class: "admin-comment-link text-break" %>
                 </td>
 
                 <!-- コメントしたユーザー -->
-                <td>
-                  <%= comment.user.name %>
+                <td class="text-break">
+                  <%= comment.user&.name || "退会したユーザー" %>
                 </td>
 
                 <!-- コメントされた投稿 -->
-                <td>
-                  <%= link_to comment.post.title,
-                              public_post_path(comment.post),
-                              class: "text-decoration-none" %>
+                <td class="text-break">
+                  <%= link_to truncate(comment.post.title, length: 20), public_post_path(comment.post), class: "admin-comment-link" %>
                 </td>
 
                 <!-- 投稿日時 -->
-                <td>
-                  <%= l comment.created_at, format: :short %>
+                <td class="text-nowrap">
+                  <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %>
                 </td>
 
                 <!-- 削除 -->
@@ -58,13 +51,9 @@
                                 class: "btn btn-sm btn-outline-danger" %>
                 </td>
               </tr>
-
             <% end %>
-
           </tbody>
-
         </table>
-
       </div>
 
     <% else %>
