@@ -1,9 +1,8 @@
 class Admin < ApplicationRecord
   has_secure_password
+
   has_many :sessions, as: :account, dependent: :destroy
   has_many :groups, dependent: :destroy
-
-  normalizes :email_address, with: ->(email) { email.strip.downcase }
 
   validates :name, 
             presence: true,
@@ -17,5 +16,11 @@ class Admin < ApplicationRecord
 
   validates :password, 
             length: { minimum: 6 },
-             allow_nil: true
+            allow_nil: true
+
+  validates :password_confirmation,
+            presence: true,
+            if: -> { password.present? }
+
+  normalizes :email_address, with: ->(email) { email.strip.downcase }
 end

@@ -7,9 +7,7 @@
   <div class="card shadow-sm">
     <div class="card-body">
 
-      <%= form_with model: @admin,
-                    url: admin_admins_path,
-                    local: true do |f| %>
+      <%= form_with model: @admin, url: admin_admins_path, local: true do |f| %>
 
         <% if @admin.errors.any? %>
           <div class="alert alert-danger">
@@ -22,49 +20,54 @@
           </div>
         <% end %>
 
+        <!-- 名前 -->
         <div class="mb-3">
           <%= f.label :name, "名前", class: "form-label" %>
+          <span class="badge bg-warning text-dark">必須</span>
+
           <%= f.text_field :name,
                            class: "form-control",
                            required: true %>
         </div>
 
+        <!-- メールアドレス -->
         <div class="mb-3">
           <%= f.label :email_address, "メールアドレス", class: "form-label" %>
+          <span class="badge bg-warning text-dark">必須</span>
+
           <%= f.email_field :email_address,
                             class: "form-control",
                             required: true %>
         </div>
 
+        <!-- パスワード -->
         <div class="mb-3">
           <%= f.label :password, "パスワード", class: "form-label" %>
+          <span class="badge bg-warning text-dark">必須</span>
+
           <%= f.password_field :password,
                                class: "form-control",
                                required: true %>
         </div>
 
+        <!-- パスワード確認 -->
         <div class="mb-4">
-          <%= f.label :password_confirmation,
-                      "パスワード確認",
-                      class: "form-label" %>
+          <%= f.label :password_confirmation, "パスワード確認", class: "form-label" %>
+          <span class="badge bg-warning text-dark">必須</span>
 
           <%= f.password_field :password_confirmation,
                                class: "form-control",
                                required: true %>
         </div>
 
+        <!-- ボタン -->
         <div class="d-flex gap-2">
-          <%= f.submit "登録する",
-                       class: "btn btn-primary" %>
-
-          <%= link_to "キャンセル",
-                      admin_admins_path,
-                      class: "btn btn-outline-secondary" %>
+          <%= f.submit "登録する", class: "btn btn-primary" %>
+          <%= link_to "キャンセル", admin_admins_path, class: "btn btn-outline-secondary" %>
         </div>
 
       <% end %>
 
     </div>
   </div>
-
 </div>
