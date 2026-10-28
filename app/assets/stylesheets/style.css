@@ -57,3 +57,25 @@ h3 {
   overflow-wrap: anywhere;
   word-break: normal;
 }
+
+/* 管理者画面 */
+/* 管理者画面のコメント・投稿リンク */
+.admin-comment-link {
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* マウスを乗せたとき */
+.admin-comment-link:hover {
+  color: #806641;
+  text-decoration: underline;
+}
+
+/* キーボード操作でフォーカスしたとき */
+.admin-comment-link:focus-visible {
+  color: #806641;
+  text-decoration: underline;
+  outline: 2px solid #806641;
+  outline-offset: 2px;
+}
