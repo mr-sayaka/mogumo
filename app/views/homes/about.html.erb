@@ -2,13 +2,13 @@
 
 <div class="container py-5">
   <!-- タイトル -->
-  <div class="text-center mb-5">
-    <h2 class="fw-bold mb-3">
+  <div class="text-center mb-3 mb-md-5">
+    <h2 class="fw-bold mogumo-heading">
       <span class="small text-secondary">・・・・</span>
       mogumoについて
       <span class="small text-secondary">・・・・</span>
     </h2>
-    <p class="text-secondary mb-0">
+    <p class="text-secondary mb-0 mt-2 mt-md-3">
       離乳食を通して、子育てをもっと楽しく。
     </p>
   </div>
@@ -37,8 +37,8 @@
   </div>
 
   <!-- mogumoでできること -->
-  <div class="text-center mb-4">
-    <h2 class="fw-bold">
+  <div class="text-center mb-3 mb-md-5">
+    <h2 class="fw-bold mogumo-heading">
       <span class="small text-secondary">・・・・</span>
       mogumoでできること
       <span class="small text-secondary">・・・・</span>
@@ -46,7 +46,6 @@
   </div>
 
   <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-
     <!-- レシピ投稿 -->
     <div class="col">
       <div class="card border-0 shadow-sm rounded-4 h-100">
@@ -100,7 +99,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- コミュニティー限定レシピ -->
@@ -149,24 +147,28 @@
   </div>
 
   <!-- 最後のメッセージ -->
-  <div class="text-center mt-5">
-    <h2 class="h5 fw-bold mb-3">
+  <div class="text-center mb-3 mb-md-5">
+    <h2 class="fw-bold mogumo-heading">
       毎日の離乳食を、もっと楽しく。
     </h2>
     <p class="text-secondary small mb-4">
       mogumoでお気に入りのレシピやコミュニティーを見つけてみてください。
     </p>
-    <%= link_to public_posts_path,
-                class: "btn btn-success rounded-pill px-5 me-2" do %>
-      レシピを見る
-      <i class="bi bi-chevron-right ms-2"></i>
-    <% end %>
+    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3 gap-lg-0">
+      <%= link_to public_posts_path,
+                  class: "btn btn-success rounded-pill px-5 w-100",
+                  style: "max-width: 280px;" do %>
+        レシピを探す
+        <i class="bi bi-chevron-right ms-2"></i>
+      <% end %>
 
-    <%= link_to public_groups_path,
-                class: "btn btn-outline-success rounded-pill px-5" do %>
-      コミュニティーを見る
-      <i class="bi bi-chevron-right ms-2"></i>
-    <% end %>
+      <%= link_to public_groups_path,
+                  class: "btn btn-outline-success rounded-pill px-5 w-100 ms-lg-2",
+                  style: "max-width: 280px;" do %>
+        コミュニティーを見る
+        <i class="bi bi-chevron-right ms-2"></i>
+      <% end %>
+    </div>
   </div>
 </div>
 
