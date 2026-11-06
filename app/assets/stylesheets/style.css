@@ -52,6 +52,18 @@ h3 {
     box-shadow: none !important;
 }
 
+.mogumo-new-post-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.mogumo-post-btn {
+    position: absolute;
+    right: 0;
+}
+
 /* コメント本文の長い英数字を折り返す */
 .comment-body {
   overflow-wrap: anywhere;
@@ -78,4 +90,20 @@ h3 {
   text-decoration: underline;
   outline: 2px solid #806641;
   outline-offset: 2px;
+}
+
+@media (max-width: 991.98px) {
+  .mogumo-new-post-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .mogumo-post-btn {
+    position: static;
+    transform: none;
+    font-size: 0.8rem;
+    padding: 6px 18px !important;
+  }
 }
