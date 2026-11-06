@@ -2,15 +2,13 @@
 
 <div class="container py-5">
   <!-- タイトル・投稿ボタン -->
-  <div class="d-flex justify-content-center align-items-center position-relative mb-5">
-    <h2 class="fw-bold mb-0">
+  <div class="mogumo-new-post-header mb-3 mb-md-5">
+    <h2 class="fw-bold mogumo-heading">
       <span class="small text-secondary">・・・・</span>
       新着レシピ
       <span class="small text-secondary">・・・・</span>
     </h2>
-
-    <%= link_to new_public_post_path,
-                class: "btn btn-success btn-sm rounded-pill position-absolute end-0 px-4" do %>
+    <%= link_to new_public_post_path, class: "btn btn-success btn-sm rounded-pill px-4 mogumo-post-btn" do %>
       レシピを投稿する
       <i class="bi bi-chevron-right ms-2"></i>
     <% end %>
@@ -18,21 +16,20 @@
 
   <!-- 説明 -->
   <div class="text-center mb-5">
-    <p class="text-secondary mb-0">
+    <p class="text-secondary mb-0 mt-2 mt-md-3">
       みんなの離乳食レシピを見てみましょう。
     </p>
   </div>
 
   <!-- 投稿一覧 -->
   <% if @posts.any? %>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+    <div class="row row-cols-2 row-cols-lg-4 g-3 g-lg-4">
       <% @posts.each do |post| %>
         <div class="col">
-          <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm">
+          <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm recipe-card">
 
             <!-- 投稿詳細へのリンク -->
-            <%= link_to public_post_path(post),
-                        class: "text-decoration-none text-dark" do %>
+            <%= link_to public_post_path(post), class: "text-decoration-none text-dark" do %>
 
               <!-- 画像 -->
               <div class="ratio ratio-4x3 bg-secondary-subtle">
@@ -43,36 +40,36 @@
               </div>
 
               <!-- 投稿情報 -->
-              <div class="card-body bg-warning-subtle">
+              <div class="card-body bg-warning-subtle recipe-card-body">
                 <!-- 公開状態 -->
-                <div class="mb-3">
-                  <% if post.visibility == "public" %>
-                    <span class="badge bg-success-subtle text-success-emphasis rounded-pill px-3 py-2">
+                <% if post.visibility == "public" %>
+                  <div class="mb-2">
+                    <span class="badge bg-success-subtle text-success-emphasis rounded-pill recipe-badge">
                       全体公開
                     </span>
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
 
                 <!-- ユーザー名 -->
-                <p class="small fw-bold mb-2">
+                <p class="small fw-bold text-secondary mb-2 recipe-user-name">
                   <%= post.user.name %>
                 </p>
 
                 <!-- タイトル -->
-                <h5 class="fw-bold mb-3">
+                <h5 class="fw-bold mb-3 recipe-title">
                   <%= post.title %>
                 </h5>
 
                 <!-- 対象年齢 -->
                 <% if post.target_age.present? %>
-                  <p class="small text-muted mb-2">
+                  <p class="small text-muted mb-2 recipe-age">
                     対象年齢：<%= post.target_age %>
                   </p>
                 <% end %>
 
                 <!-- 投稿日 -->
                 <div class="d-flex justify-content-between align-items-center">
-                  <p class="small text-secondary mb-0">
+                  <p class="small text-secondary mb-0 recipe-date">
                     <%= post.created_at.strftime("%Y/%m/%d") %>
                   </p>
                 </div>
@@ -80,7 +77,7 @@
             <% end %>
 
             <!-- いいね -->
-            <div class="px-3 pb-3 bg-warning-subtle">
+            <div class="px-3 pb-3 bg-warning-subtle recipe-like-area">
               <%= render "public/likes/like_button", post: post %>
             </div>
           </div>
