@@ -64,7 +64,31 @@ h3 {
     right: 0;
 }
 
-/* コメント本文の長い英数字を折り返す */
+/* 投稿ページ */
+.post-form-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.post-form-card .form-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.post-form-card .form-control,
+.post-form-card .form-select {
+  font-size: 15px;
+}
+
+.post-form-card textarea {
+  overflow-wrap: break-word;
+}
+
+.post-submit-btn {
+  min-width: 180px;
+}
+
+/* コメント */
 .comment-body {
   overflow-wrap: anywhere;
   word-break: normal;
@@ -105,5 +129,62 @@ h3 {
     transform: none;
     font-size: 0.8rem;
     padding: 6px 18px !important;
+  }
+
+  /* 投稿ページ */
+  .post-form-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .post-form-title {
+    font-size: 21px;
+    margin-bottom: 20px !important;
+  }
+
+  .post-form-card {
+    border-radius: 10px;
+  }
+
+  .post-form-card .card-body {
+    padding: 16px !important;
+  }
+
+  .post-form-card .mb-4 {
+    margin-bottom: 20px !important;
+  }
+
+  .post-form-card .form-label {
+    font-size: 14px;
+  }
+
+  .post-form-card .badge {
+    font-size: 11px;
+    vertical-align: middle;
+  }
+
+  .post-form-card .form-control,
+  .post-form-card .form-select {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .post-form-card input[type="file"] {
+    font-size: 12px;
+  }
+
+  .post-form-card .form-text {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .post-submit-btn {
+    width: 280px;
+    padding: 6px !important;
+  }
+
+  .post-back-btn {
+    width: 180px;
+    padding: 6px !important;
   }
 }
